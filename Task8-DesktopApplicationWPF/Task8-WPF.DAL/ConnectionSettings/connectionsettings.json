@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;AttachDbFilename=D:\\IT\\Coding\\C#\\MentoringProjects\\Task8-desktopApplicationWPF\\Task8-DesktopApplicationWPF\\DataBase\\wpfappdb.mdf;Database=wpfappdb;Trusted_Connection=True;"
+  }
+}
