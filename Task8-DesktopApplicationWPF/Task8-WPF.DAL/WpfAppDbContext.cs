@@ -11,6 +11,10 @@ public class WpfAppDbContext : DbContext
     public DbSet<Group> Groups { get; set; } = null!;
     public DbSet<Student> Students { get; set; } = null!;
 
+    public WpfAppDbContext(DbContextOptions<WpfAppDbContext> options) : base(options) { }
+
+    public WpfAppDbContext() { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Course>(entity =>
