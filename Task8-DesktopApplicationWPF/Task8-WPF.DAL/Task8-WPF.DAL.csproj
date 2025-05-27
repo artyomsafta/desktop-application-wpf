@@ -6,17 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="ConnectionSettings\connectionsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ConnectionSettings\connectionsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
@@ -35,6 +25,7 @@
   <ItemGroup>
     <None Update="ConnectionSettings\connectionsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <TargetPath>connectionsettings.json</TargetPath>
     </None>
   </ItemGroup>
 

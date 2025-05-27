@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task8-WPF.UI", "Task8-WPF.UI\Task8-WPF.UI.csproj", "{E8C52AF3-A3A1-42A8-8D2C-BD2D2D2FFB21}"
-	ProjectSection(ProjectDependencies) = postProject
-		{415F1E34-5FCE-46A8-912B-AC462868239A} = {415F1E34-5FCE-46A8-912B-AC462868239A}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task8-WPF.DAL", "Task8-WPF.DAL\Task8-WPF.DAL.csproj", "{415F1E34-5FCE-46A8-912B-AC462868239A}"
 EndProject
