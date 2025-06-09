@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task8_WPF.UI"
+        xmlns:vm="clr-namespace:Task8_WPF.UI.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Task8-DesktopApplication" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"> 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Content="Default Page" Command="{Binding NavigateToDefaultCommand}" Margin="5"/>
+            <Button Content="Editing Page" Command="{Binding NavigateToEditCommand}" Margin="5"/>
+        </StackPanel>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentPageViewModel}" />
     </Grid>
 </Window>

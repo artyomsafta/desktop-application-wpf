@@ -4,16 +4,16 @@ namespace Task8_WPF.DAL.ConnectionSettings;
 
 public static class ConfigurationHelper
 {
-    public static IConfigurationRoot GetConfiguration()
+    public static string GetConnectionString(string name = "DefaultConnection")
+    {
+        return GetConfiguration().GetConnectionString(name);
+    }
+
+    private static IConfigurationRoot GetConfiguration()
     {
         return new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("connectionsettings.json", optional: false)
             .Build();
-    }
-
-    public static string GetConnectionString(string name = "DefaultConnection")
-    {
-        return GetConfiguration().GetConnectionString(name);
     }
 }
