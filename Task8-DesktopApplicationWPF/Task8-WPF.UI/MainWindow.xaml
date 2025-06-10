@@ -10,12 +10,12 @@
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"> 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="Default Page" Command="{Binding NavigateToDefaultCommand}" Margin="5"/>
-            <Button Content="Editing Page" Command="{Binding NavigateToEditCommand}" Margin="5"/>
+            <Button Content="Default Page" Command="{Binding NavigateToDefaultCommand}" Margin="5" />
+            <Button Content="Editing Page" Command="{Binding NavigateToEditCommand}" Margin="5" />
         </StackPanel>
         <ContentControl Grid.Row="1" Content="{Binding CurrentPageViewModel}" />
     </Grid>

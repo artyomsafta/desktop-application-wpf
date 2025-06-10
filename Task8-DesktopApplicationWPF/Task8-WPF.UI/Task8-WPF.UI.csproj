@@ -13,4 +13,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Task8-WPF.BAL\Task8-WPF.BAL.csproj" />
+  </ItemGroup>
+
 </Project>

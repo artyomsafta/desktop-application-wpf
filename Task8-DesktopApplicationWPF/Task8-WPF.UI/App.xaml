@@ -2,8 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Task8_WPF.UI"
+             xmlns:vm="clr-namespace:Task8_WPF.UI.ViewModels"
+             xmlns:vw="clr-namespace:Task8_WPF.UI.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type vm:DefaultViewModel}">
+            <vw:DefaultView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EditViewModel}">
+            <vw:EditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CoursesTreeViewModel}">
+            <vw:CoursesTreeView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
