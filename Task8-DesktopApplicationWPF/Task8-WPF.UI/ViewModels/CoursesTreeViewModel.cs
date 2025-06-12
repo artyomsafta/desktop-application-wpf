@@ -1,25 +1,40 @@
 ﻿using System.Collections.ObjectModel;
-using Task8_WPF.BAL.Dto;
+using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels;
 
 public class CoursesTreeViewModel : BaseViewModel
 {
-    public ObservableCollection<CoursesTreeDto> TreeItems { get; set; }
+    private TreeViewService _treeViewService;
+    public ObservableCollection<CourseViewModel> Courses { get; } = new();
 
     public CoursesTreeViewModel()
     {
-        TreeItems = new ObservableCollection<CoursesTreeDto>
+        _treeViewService = new TreeViewService();
+        LoadHierarchy();
+    }
+
+    private void LoadHierarchy()
+    {
+        Courses.Clear();
+
+        var coursesTreeDtos = _treeViewService.GetHierarchyForTreeView();
+
+        foreach (var coursesTreeDto in coursesTreeDtos)
         {
-            new CoursesTreeDto
-            { 
-                Title = "Root", 
-                Children = new List<CoursesTreeDto>
+            var courseViewModel = new CourseViewModel
+            {
+                CourseName = coursesTreeDto.CourseName,
+                Groups = new ObservableCollection<GroupViewModel>(coursesTreeDto.Groups.Select(groupsTreeDto => new GroupViewModel
                 {
-                    new CoursesTreeDto { Title = "Child1"},
-                    new CoursesTreeDto { Title = "Child2"}
-                }
-            }
-        };
+                    GroupName = groupsTreeDto.GroupName,
+                    Students = new ObservableCollection<StudentViewModel>(groupsTreeDto.Students.Select(studentsTreeDto => new StudentViewModel
+                    {
+                        FullName = studentsTreeDto.FullName
+                    }))
+                }))
+            };
+            Courses.Add(courseViewModel);
+        }
     }
 }

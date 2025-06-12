@@ -18,7 +18,4 @@ public class DbInitializer : IDbInitializer
         var newSeed = new DbSeeder();
         newSeed.Seed(_context);
     }
-
-
-    // TODO: в WPF-приложении вызывать именно IDbInitializer.Initialize(), а не сам DbSeeder напрямую
 }

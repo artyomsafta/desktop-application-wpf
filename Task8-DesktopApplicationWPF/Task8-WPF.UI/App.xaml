@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Task8_WPF.UI"
              xmlns:vm="clr-namespace:Task8_WPF.UI.ViewModels"
-             xmlns:vw="clr-namespace:Task8_WPF.UI.Views"
-             StartupUri="MainWindow.xaml">
+             xmlns:vw="clr-namespace:Task8_WPF.UI.Views">
     <Application.Resources>
         <DataTemplate DataType="{x:Type vm:DefaultViewModel}">
             <vw:DefaultView />

@@ -8,13 +8,31 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:CoursesTreeViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:StudentViewModel}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#128100; " VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding FullName}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type vm:GroupViewModel}" 
+                                  ItemsSource="{Binding Students}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#128210; " VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding GroupName}" FontWeight="SemiBold"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type vm:CourseViewModel}"
+                                  ItemsSource="{Binding Groups}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#128218; " VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding CourseName}" FontWeight="Bold"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <TreeView ItemsSource="{Binding TreeItems}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Title}" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <TreeView ItemsSource="{Binding Courses}" />
     </Grid>
 </UserControl>

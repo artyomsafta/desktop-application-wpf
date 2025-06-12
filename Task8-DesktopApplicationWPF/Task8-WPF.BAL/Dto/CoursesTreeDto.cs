@@ -2,8 +2,6 @@
 
 public class CoursesTreeDto
 {
-    public string Title { get; set; }
-    public List<CoursesTreeDto> Children { get; set; }
-
-    public bool HasChildren => Children?.Any() == true;
+    public string CourseName { get; set; }
+    public List<GroupsTreeDto> Groups { get; set; } = new();
 }
