@@ -8,8 +8,14 @@
         <DataTemplate DataType="{x:Type vm:DefaultViewModel}">
             <vw:DefaultView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EditViewModel}">
-            <vw:EditView />
+        <DataTemplate DataType="{x:Type vm:GroupsEditViewModel}">
+            <vw:GroupsEditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StudentsEditViewModel}">
+            <vw:StudentsEditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TeachersEditViewModel}">
+            <vw:TeachersEditView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CoursesTreeViewModel}">
             <vw:CoursesTreeView />

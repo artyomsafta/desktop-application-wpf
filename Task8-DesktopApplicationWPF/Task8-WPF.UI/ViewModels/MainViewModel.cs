@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels;
 
@@ -19,13 +18,16 @@ public class MainViewModel : BaseViewModel
     }
 
     public ICommand NavigateToDefaultCommand { get; }
-    public ICommand NavigateToEditCommand { get; } // Это код для следующей страницы по заданию
+    public ICommand NavigateToCoursesEditCommand { get; }
+    public ICommand NavigateToStudentsEditCommand { get; }
+    public ICommand NavigateToTeachersEditCommand { get; }
 
     public MainViewModel()
     {
         NavigateToDefaultCommand = new RelayCommand(() => CurrentPageViewModel = new DefaultViewModel());
-        NavigateToEditCommand = new RelayCommand(() => CurrentPageViewModel = new EditViewModel());
-        // TODO: допиши тут все необходимые команды навигации для остальных страниц по заданию!
+        NavigateToCoursesEditCommand = new RelayCommand(() => CurrentPageViewModel = new GroupsEditViewModel());
+        NavigateToStudentsEditCommand = new RelayCommand(() => CurrentPageViewModel = new StudentsEditViewModel());
+        NavigateToTeachersEditCommand = new RelayCommand(() => CurrentPageViewModel = new TeachersEditViewModel());
 
         CurrentPageViewModel = new DefaultViewModel();
     }

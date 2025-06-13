@@ -8,12 +8,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:DefaultViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Aqua">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <local:CoursesTreeView Grid.Column="0" DataContext="{Binding CoursesTreeViewModel}" />
-        <TextBlock Grid.Column="1" Text="Welcome to Default Page!" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </UserControl>
