@@ -1,4 +1,4 @@
-﻿namespace Task8_WPF.BAL.Dto;
+﻿namespace Task8_WPF.BAL.Dto.EntityDtos;
 
 public class CourseDto
 {

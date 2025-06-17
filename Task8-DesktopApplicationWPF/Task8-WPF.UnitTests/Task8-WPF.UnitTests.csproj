@@ -17,14 +17,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
+    <PackageReference Include="FluentAssertions" Version="8.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
-    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="1.7.1" />
-    <PackageReference Include="MSTest" Version="3.9.1" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="1.7.2" />
+    <PackageReference Include="MSTest" Version="3.9.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Task8-WPF.BAL\Task8-WPF.BAL.csproj" />
     <ProjectReference Include="..\Task8-WPF.DAL\Task8-WPF.DAL.csproj" />
   </ItemGroup>
 

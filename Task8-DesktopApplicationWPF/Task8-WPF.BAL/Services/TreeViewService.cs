@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Task8_WPF.BAL.Dto;
+using Task8_WPF.BAL.Dto.TreeDtos;
 using Task8_WPF.DAL;
 
 namespace Task8_WPF.BAL.Services;
@@ -7,6 +8,11 @@ namespace Task8_WPF.BAL.Services;
 public class TreeViewService
 {
     private WpfAppDbContext _context;
+
+    public TreeViewService(DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+    }
 
     public TreeViewService()
     {
