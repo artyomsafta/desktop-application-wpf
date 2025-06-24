@@ -34,7 +34,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel Grid.Row="2" Orientation="Vertical">
-                    <Button Content="Create group" Height="28" Margin="0,0,0,5" />
+                    <Button Content="Create group" Command="{Binding OpenCreateGroupWindowCommand}" Height="28" Margin="0,0,0,5" />
                     <Button Content="Rename group" Height="28" Margin="0,0,0,5" />
                     <Button Content="Delete group" Height="28" Margin="0,0,0,5" />
                     <Button Content="Update teacher" Height="28" />
@@ -54,7 +54,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Import / export of student's list" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Label Grid.Row="0" Content="Import / export of students list" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
                 <Label Grid.Row="1" Content="Select group for import or export:" HorizontalAlignment="Left" FontSize="16" Background="White" Margin="0,5" />
                 <ComboBox Grid.Row="2" ItemsSource="{Binding GroupsListViewModel.Groups}" HorizontalAlignment="Left" Height="35" Width="200" Margin="0,5">
                     <ComboBox.ItemTemplate>
@@ -71,7 +71,7 @@
                     <Button Content="Import students" Height="28" Margin="0,5,5,5" />
                     <Button Content="Export students" Height="28" Margin="0,5,0,5" />
                 </StackPanel>
-                <Label Grid.Row="5" Content="Save student's list to document" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Label Grid.Row="5" Content="Save students list to document" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
                 <Label Grid.Row="6" Content="Select group to make a document:" HorizontalAlignment="Left" FontSize="16" Background="White" Margin="0,5" />
                 <ComboBox Grid.Row="7" ItemsSource="{Binding GroupsListViewModel.Groups}" HorizontalAlignment="Left" Height="35" Width="200" Margin="0,5">
                     <ComboBox.ItemTemplate>
