@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
@@ -7,7 +8,7 @@ public class GroupsListViewModel : BaseViewModel
 {
     private GroupsListService _groupsService;
 
-    public ObservableCollection<GroupForListViewModel> Groups { get; } = new();
+    public ObservableCollection<GroupDto> Groups { get; } = new();
 
     public GroupsListViewModel()
     {
@@ -27,7 +28,7 @@ public class GroupsListViewModel : BaseViewModel
 
         foreach (var sortedGroupsDto in sortedGroupsDtos)
         {
-            var groupForListViewModel = new GroupForListViewModel
+            var groupForListViewModel = new GroupDto
             {
                 GroupName = sortedGroupsDto.GroupName,
                 CourseName = sortedGroupsDto.CourseName,

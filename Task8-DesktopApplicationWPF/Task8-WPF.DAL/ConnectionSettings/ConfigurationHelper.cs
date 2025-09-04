@@ -4,7 +4,7 @@ namespace Task8_WPF.DAL.ConnectionSettings;
 
 public static class ConfigurationHelper
 {
-    public static string GetConnectionString(string name = "DefaultConnection")
+    public static string GetConnectionString(string name = "AlternateConnection")
     {
         return GetConfiguration().GetConnectionString(name);
     }

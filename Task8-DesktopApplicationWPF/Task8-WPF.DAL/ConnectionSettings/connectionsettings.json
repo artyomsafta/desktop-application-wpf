@@ -1,5 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;AttachDbFilename=D:\\IT\\Coding\\C#\\MentoringProjects\\Task8-desktopApplicationWPF\\Task8-DesktopApplicationWPF\\DataBase\\wpfappdb.mdf;Database=wpfappdb;Trusted_Connection=True;"
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;AttachDbFilename=D:\\IT\\Coding\\C#\\MentoringProjects\\Task8-desktopApplicationWPF\\Task8-DesktopApplicationWPF\\DataBase\\wpfappdb.mdf;Database=wpfappdb;Trusted_Connection=True;",
+    "AlternateConnection": "Server=(localdb)\\mssqllocaldb;AttachDbFilename=C:\\IT\\Coding\\C_sharp\\FoxmidEd_code\\C_sharp_mentoring\\Task8_DesktopApplicationWPF\\Task8-DesktopApplicationWPF\\DataBase\\wpfappdb.mdf;Database=wpfappdb;Trusted_Connection=True;"
   }
 }
