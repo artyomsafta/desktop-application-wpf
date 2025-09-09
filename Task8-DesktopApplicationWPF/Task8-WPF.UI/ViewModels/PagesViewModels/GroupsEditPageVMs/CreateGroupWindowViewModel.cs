@@ -2,14 +2,13 @@
 using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
+using Task8_WPF.BAL.Services.AddEntriesServices;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
 public class CreateGroupWindowViewModel : BaseViewModel
 {
-    //Тут будет сервис бизнес-логики по обработке запроса на создание группы
-    public CoursesListViewModel CoursesListViewModel { get; }
-    public TeachersListViewModel TeachersListViewModel { get; }
+    private GroupAddEntryService _groupAddEntryService;
 
     private string _groupName;
     public string GroupName
@@ -49,6 +48,8 @@ public class CreateGroupWindowViewModel : BaseViewModel
 
     public IRelayCommand OkCommand { get; }
     public ICommand CancelCommand { get; }
+    public CoursesListViewModel CoursesListViewModel { get; }
+    public TeachersListViewModel TeachersListViewModel { get; }
 
     public CreateGroupWindowViewModel()
     {
@@ -68,9 +69,16 @@ public class CreateGroupWindowViewModel : BaseViewModel
 
     private void ExecuteOk()
     {
-        //тут логика передачи данных от пользователя в бизнес-сервис!
-        //месседж-бокс временно, потом уберу
-        MessageBox.Show($"Operation successful!\nNew group name: {GroupName},\ncourse: {SelectedCourse.CourseName},\nteacher:{SelectedTeacher.Name}.");
+        try
+        {
+            _groupAddEntryService = new GroupAddEntryService(_groupName, SelectedCourse, SelectedTeacher);
+            _groupAddEntryService.AddGroupEntry();
+            MessageBox.Show($"Operation successful!\nNew group name: {GroupName},\ncourse: {SelectedCourse.CourseName},\nteacher:{SelectedTeacher.Name} {SelectedTeacher.Surname}.");
+        }
+        catch (Exception ex)
+        { 
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void ExecuteCancel(Window window)
