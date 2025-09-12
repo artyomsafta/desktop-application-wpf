@@ -9,11 +9,13 @@ public class GroupsEditViewModel : BaseViewModel
 {
     public GroupsListViewModel GroupsListViewModel { get; }
     public ICommand OpenCreateGroupWindowCommand { get; }
+    public ICommand OpenRenameGroupWindowCommand {  get; }
 
     public GroupsEditViewModel()
     {
         GroupsListViewModel = new GroupsListViewModel();
         OpenCreateGroupWindowCommand = new RelayCommand(OpenCreateGroupWindow);
+        OpenRenameGroupWindowCommand = new RelayCommand(OpenRenameGroupWindow);
     }
 
     private void OpenCreateGroupWindow()
@@ -21,6 +23,16 @@ public class GroupsEditViewModel : BaseViewModel
         var window = new CreateGroupWindowView
         {
             DataContext = new CreateGroupWindowViewModel()
+        };
+
+        window.ShowDialog();
+    }
+
+    private void OpenRenameGroupWindow()
+    {
+        var window = new RenameGroupWindowView
+        {
+            DataContext = new RenameGroupWindowViewModel()
         };
 
         window.ShowDialog();

@@ -1,0 +1,64 @@
+﻿<Window x:Class="Task8_WPF.UI.Views.RenameGroupWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task8_WPF.UI.Views"
+        mc:Ignorable="d"
+        Title="Rename Group"
+        Height="150" Width="300"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="Aquamarine" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Select group to rename:" 
+           Grid.Row="0" Grid.Column="0"
+           VerticalAlignment="Center"
+           FontSize="12" FontWeight="Bold"/>
+
+        <ComboBox Grid.Row="0" Grid.Column="1"
+          Margin="5" 
+          ItemsSource="{Binding GroupsListViewModel.Groups}"
+          SelectedItem="{Binding SelectedGroup, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding GroupName}" FontWeight="Bold" FontSize="12" />
+                        <Run Text=" " />
+                        <Run Text="{Binding CourseName}" FontWeight="Bold" FontSize="12" />
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Text="New name of group:" 
+                   Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="12" FontWeight="Bold"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Margin="5" 
+                 Text="{Binding GroupNewName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,15,0,0">
+            <Button Content="OK" Width="70" Margin="5,0"
+                Command="{Binding OkCommand}" />
+            <Button Content="Cancel" Width="70" Margin="5,0"
+		        Command="{Binding CancelCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -2,7 +2,7 @@
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.BAL.Services.AddEntriesServices;
+namespace Task8_WPF.BAL.Services.GroupsServices;
 
 public class GroupAddEntryService
 {
@@ -34,12 +34,14 @@ public class GroupAddEntryService
         }
 
         var course = _context.Courses.FirstOrDefault(c => c.Name == _newGroupEntry.CourseName);
+
         if (course is null)
         {
             throw new Exception($"Course '{_newGroupEntry.CourseName}' not found!");
         }
 
-        var teacher = _context.Teachers.FirstOrDefault(t => (t.Name + " " + t.Surname) == _newGroupEntry.TeacherFullName);
+        var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == _newGroupEntry.TeacherFullName);
+
         if (teacher is null)
         {
             throw new Exception($"Teacher '{_newGroupEntry.TeacherFullName}' not found!");
