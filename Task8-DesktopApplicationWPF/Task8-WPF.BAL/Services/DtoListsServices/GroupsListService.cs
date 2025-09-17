@@ -2,7 +2,7 @@
 using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.DAL;
 
-namespace Task8_WPF.BAL.Services;
+namespace Task8_WPF.BAL.Services.DtoListsServices;
 
 public class GroupsListService
 {

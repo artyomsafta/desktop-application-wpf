@@ -48,32 +48,51 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Import / export of students list" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <Label Grid.Row="1" Content="Select group for import or export:" HorizontalAlignment="Left" FontSize="16" Background="White" Margin="0,5" />
-                <ComboBox Grid.Row="2" ItemsSource="{Binding GroupsListViewModel.Groups}" HorizontalAlignment="Left" Height="35" Width="200" Margin="0,5">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <Run Text="{Binding GroupName}" FontWeight="Bold" FontSize="14" />
-                                <Run Text=" " />
-                                <Run Text="{Binding CourseName}" FontWeight="Bold" FontSize="14" />
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <Button Content="Import students" Height="28" Margin="0,5,5,5" />
+                <Label Grid.Row="0" Content="Import of students list" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Grid Grid.Row="1" Margin="0,5,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="1" Text="{Binding FileDialogViewModel.SelectedFilePath, Mode=TwoWay}" Height="28" Margin="0,0,5,0"/>
+                    <Button Grid.Column="0" Command="{Binding FileDialogViewModel.OpenFileCommand}" Content="Select import file..." Height="28" Margin="5,0,5,0"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,5,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Select group for import:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="0,5" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding GroupsListViewModel.Groups}" SelectedItem="{Binding SelectedImportExportGroup, Mode=TwoWay}" Height="30" Margin="0,5">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                               <Run Text="{Binding GroupName}" FontWeight="Bold" FontSize="14" />
+                               <Run Text=" " />
+                               <Run Text="{Binding CourseName}" FontWeight="Bold" FontSize="14" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Grid.Column="3" Content="Import students" Command="{Binding ImportStudentsCommand}" Height="30" Margin="5,0,5,0" />
+                </Grid>
+ 
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    
                     <Button Content="Export students" Height="28" Margin="0,5,0,5" />
                 </StackPanel>
-                <Label Grid.Row="5" Content="Save students list to document" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <Label Grid.Row="6" Content="Select group to make a document:" HorizontalAlignment="Left" FontSize="16" Background="White" Margin="0,5" />
-                <ComboBox Grid.Row="7" ItemsSource="{Binding GroupsListViewModel.Groups}" HorizontalAlignment="Left" Height="35" Width="200" Margin="0,5">
+                <Label Grid.Row="6" Content="Save students list to document" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Label Grid.Row="7" Content="Select group to make a document:" HorizontalAlignment="Center" FontSize="16" Background="White" Margin="0,5" />
+                <ComboBox Grid.Row="8" ItemsSource="{Binding GroupsListViewModel.Groups}" HorizontalAlignment="Center" Height="35" Width="200" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -84,7 +103,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <StackPanel Grid.Row="8" Orientation="Horizontal">
+                <StackPanel Grid.Row="9" Orientation="Horizontal">
                     <Button Content="Save to docx" Height="28" Margin="0,5,5,5" />
                     <Button Content="Save to pdf" Height="28" Margin="0,5,0,5" />
                 </StackPanel>

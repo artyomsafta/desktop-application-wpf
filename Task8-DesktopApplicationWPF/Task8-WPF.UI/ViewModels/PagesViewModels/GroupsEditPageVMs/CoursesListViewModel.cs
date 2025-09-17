@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services;
+using Task8_WPF.BAL.Services.DtoListsServices;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
