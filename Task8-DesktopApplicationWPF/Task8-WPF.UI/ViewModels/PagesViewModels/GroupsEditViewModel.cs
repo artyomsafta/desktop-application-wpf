@@ -14,6 +14,7 @@ public class GroupsEditViewModel : BaseViewModel
 {
     private GroupDeleteService _groupsDeleteService;
     private ImportFileService _importFileService;
+    private ExportFileService _exportFileService;
 
     private GroupDto _selectedGroup;
 
@@ -28,16 +29,29 @@ public class GroupsEditViewModel : BaseViewModel
         }
     }
 
-    private GroupDto _selectedImportExportGroup;
+    private GroupDto _selectedImportGroup;
 
-    public GroupDto SelectedImportExportGroup
+    public GroupDto SelectedImportGroup
     {
-        get => _selectedImportExportGroup;
+        get => _selectedImportGroup;
         set
         {
-            _selectedImportExportGroup = value;
+            _selectedImportGroup = value;
             OnPropertyChanged();
             ImportStudentsCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+    private GroupDto _selectedExportGroup;
+
+    public GroupDto SelectedExportGroup
+    {
+        get => _selectedExportGroup;
+        set
+        {
+            _selectedExportGroup = value;
+            OnPropertyChanged();
+            ExportStudentsCommand.NotifyCanExecuteChanged();
         }
     }
 
@@ -48,6 +62,7 @@ public class GroupsEditViewModel : BaseViewModel
     public ICommand OpenUpdateTeacherWindowCommand { get; }
     public FileDialogViewModel FileDialogViewModel { get; }
     public IRelayCommand ImportStudentsCommand { get; }
+    public IRelayCommand ExportStudentsCommand { get; }
 
     public GroupsEditViewModel()
     {
@@ -58,6 +73,7 @@ public class GroupsEditViewModel : BaseViewModel
         OpenUpdateTeacherWindowCommand = new RelayCommand(OpenUpdateTeacherWindow);
         FileDialogViewModel = new FileDialogViewModel();
         ImportStudentsCommand = new RelayCommand(ImportStudents, CanExecuteImportStudents);
+        ExportStudentsCommand = new RelayCommand(ExportStudents, CanExecuteExportStudents);
     }
 
     private void OpenCreateGroupWindow()
@@ -113,9 +129,9 @@ public class GroupsEditViewModel : BaseViewModel
     {
         try
         {
-            _importFileService = new ImportFileService(_selectedImportExportGroup, FileDialogViewModel.SelectedFilePath);
+            _importFileService = new ImportFileService(_selectedImportGroup, FileDialogViewModel.SelectedFilePath);
             _importFileService.ImportStudents();
-            MessageBox.Show($"Operation successful!\nGroup: {SelectedImportExportGroup.GroupName} has been imported.");
+            MessageBox.Show($"Operation successful!\nGroup: {SelectedImportGroup.GroupName} has been imported.");
         }
         catch (Exception ex)
         {
@@ -125,7 +141,27 @@ public class GroupsEditViewModel : BaseViewModel
 
     private bool CanExecuteImportStudents()
     {
-        return SelectedImportExportGroup is not null
+        return SelectedImportGroup is not null
             && !string.IsNullOrWhiteSpace(FileDialogViewModel.SelectedFilePath);
+    }
+
+    private void ExportStudents()
+    {
+        try
+        {
+            _exportFileService = new ExportFileService(_selectedExportGroup, FileDialogViewModel.SavedFilePath);
+            _exportFileService.ExportStudents();
+            MessageBox.Show($"Operation successful!\nGroup: {SelectedExportGroup.GroupName} has been exported to file.");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
+
+    private bool CanExecuteExportStudents()
+    {
+        return SelectedExportGroup is not null
+            && !string.IsNullOrWhiteSpace(FileDialogViewModel.SavedFilePath);
     }
 }
