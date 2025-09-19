@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System.Windows.Input;
+using Ookii.Dialogs.Wpf;
 
 namespace Task8_WPF.UI.ViewModels.SystemViewModels;
 
@@ -28,13 +29,26 @@ public class FileDialogViewModel : BaseViewModel
         }
     }
 
+    private string _selectedFolderPath;
+    public string SelectedFolderPath
+    {
+        get => _selectedFolderPath;
+        set
+        {
+            _selectedFolderPath = value;
+            OnPropertyChanged();
+        }
+    }
+
     public ICommand OpenFileCommand { get; }
     public ICommand SaveFileCommand { get; }
+    public ICommand OpenFolderCommand { get; }
 
     public FileDialogViewModel()
     {
         OpenFileCommand = new RelayCommand(OpenFile);
         SaveFileCommand = new RelayCommand(SaveFile);
+        OpenFolderCommand = new RelayCommand(OpenFolder);
     }
 
     private void OpenFile()
@@ -45,9 +59,9 @@ public class FileDialogViewModel : BaseViewModel
             Filter = "cvs files (*.csv)|*.csv"
         };
 
-        if (openFileDialog.ShowDialog() == true)
+        if (openFileDialog.ShowDialog() is true)
         {
-            string selectedFile = openFileDialog.FileName;
+            var selectedFile = openFileDialog.FileName;
             SelectedFilePath = selectedFile;
         }
     }
@@ -61,10 +75,25 @@ public class FileDialogViewModel : BaseViewModel
             FileName = "document.csv"
         };
 
-        if (saveFileDialog.ShowDialog() == true)
+        if (saveFileDialog.ShowDialog() is true)
         {
-            string savedFile = saveFileDialog.FileName;
+            var savedFile = saveFileDialog.FileName;
             SavedFilePath = savedFile;
+        }
+    }
+
+    private void OpenFolder()
+    {
+        var openFolderDialog = new VistaFolderBrowserDialog
+        {
+            Description = "Select folder to save document...",
+            UseDescriptionForTitle = true
+        };
+
+        if (openFolderDialog.ShowDialog().GetValueOrDefault())
+        {
+            var SelectedFolder = openFolderDialog.SelectedPath;
+            SelectedFolderPath = SelectedFolder;
         }
     }
 }

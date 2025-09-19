@@ -15,6 +15,7 @@ public class GroupsEditViewModel : BaseViewModel
     private GroupDeleteService _groupsDeleteService;
     private ImportFileService _importFileService;
     private ExportFileService _exportFileService;
+    private CreateDocxFileService _createDocxFileService;
 
     private GroupDto _selectedGroup;
 
@@ -55,6 +56,19 @@ public class GroupsEditViewModel : BaseViewModel
         }
     }
 
+    private GroupDto _selectedSaveToFileGroup;
+
+    public GroupDto SelectedSaveToFileGroup
+    {
+        get => _selectedSaveToFileGroup;
+        set
+        {
+            _selectedSaveToFileGroup = value;
+            OnPropertyChanged();
+            SaveStudentsToDocxCommand.NotifyCanExecuteChanged();
+        }
+    }
+
     public GroupsListViewModel GroupsListViewModel { get; }
     public ICommand OpenCreateGroupWindowCommand { get; }
     public ICommand OpenRenameGroupWindowCommand {  get; }
@@ -63,6 +77,7 @@ public class GroupsEditViewModel : BaseViewModel
     public FileDialogViewModel FileDialogViewModel { get; }
     public IRelayCommand ImportStudentsCommand { get; }
     public IRelayCommand ExportStudentsCommand { get; }
+    public IRelayCommand SaveStudentsToDocxCommand {  get; }
 
     public GroupsEditViewModel()
     {
@@ -74,6 +89,7 @@ public class GroupsEditViewModel : BaseViewModel
         FileDialogViewModel = new FileDialogViewModel();
         ImportStudentsCommand = new RelayCommand(ImportStudents, CanExecuteImportStudents);
         ExportStudentsCommand = new RelayCommand(ExportStudents, CanExecuteExportStudents);
+        SaveStudentsToDocxCommand = new RelayCommand(SaveStudentsToDocx, CanExecuteSaveStudentsToFile);
     }
 
     private void OpenCreateGroupWindow()
@@ -163,5 +179,25 @@ public class GroupsEditViewModel : BaseViewModel
     {
         return SelectedExportGroup is not null
             && !string.IsNullOrWhiteSpace(FileDialogViewModel.SavedFilePath);
+    }
+
+    private void SaveStudentsToDocx()
+    {
+        try
+        {
+            _createDocxFileService = new CreateDocxFileService(_selectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath);
+            _createDocxFileService.ExportStudentsToDocx();
+            MessageBox.Show($"Operation successful!\nGroup: {SelectedSaveToFileGroup.GroupName} has been exported to file.");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
+
+    private bool CanExecuteSaveStudentsToFile()
+    {
+        return SelectedSaveToFileGroup is not null
+            && !string.IsNullOrWhiteSpace(FileDialogViewModel.SelectedFolderPath);
     }
 }
