@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using QuestPDF.Infrastructure;
+using System.Windows;
 using Task8_WPF.BAL.Services.DbInitializer;
 using Task8_WPF.DAL;
 
@@ -18,5 +19,6 @@ public partial class App : Application
 
         var mainWindow = new MainWindow();
         mainWindow.Show();
+        QuestPDF.Settings.License = LicenseType.Community;
     }
 }
