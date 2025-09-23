@@ -27,6 +27,8 @@ public class CreatePdfFileService : IDocument
         this.GeneratePdf(_fullPath);
     }
 
+    public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+
     public void Compose(IDocumentContainer container)
     {
         if (_studentsList is null || _studentsList.Count is 0)

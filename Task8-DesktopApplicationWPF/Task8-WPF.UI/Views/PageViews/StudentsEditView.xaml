@@ -4,9 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Task8_WPF.UI.Views"
+             xmlns:vm="clr-namespace:Task8_WPF.UI.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:StudentsEditViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="LightBlue">
-        <TextBlock Text="This is students Edit Page!" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Select course" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <ComboBox Grid.Row="1" ItemsSource="{Binding CoursesListViewModel.Courses}" Height="30" Margin="0,5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding CourseName}" FontWeight="Bold" FontSize="14" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label Grid.Row="2" Content="Select group" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <ComboBox Grid.Row="3" ItemsSource="{Binding GroupsListViewModel.Groups}" Height="30" Margin="0,5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding GroupName}" FontWeight="Bold" FontSize="14" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label Grid.Row="4" Content="Select student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <ComboBox Grid.Row="5" ItemsSource="{Binding CoursesListViewModel.Courses}" Height="30" Margin="0,5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                               <Run Text="{Binding CourseName}" FontWeight="Bold" FontSize="14" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="1">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Add new student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Grid Grid.Row="1" Margin="0,10,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Name:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5,0,5,0" />
+                    <TextBox Grid.Column="1" Height="28" Margin="0,0,5,0" />
+                    <Label Grid.Column="2" Content="Surname:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="3" Height="28" Margin="0,0,5,0" />
+                    <Button Grid.Column="4" Content="Add student" Height="28" Margin="0,0,5,0" />
+                </Grid>
+                <Label Grid.Row="2" Content="Update student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Grid Grid.Row="3" Margin="0,10,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="New name:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5,0,5,0" />
+                    <TextBox Grid.Column="1" Height="28" Margin="0,0,5,0" />
+                    <Label Grid.Column="2" Content="New surname:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="3" Height="28" Margin="0,0,5,0" />
+                    <Button Grid.Column="4" Content="Update" Height="28" Margin="0,0,5,0" />
+                </Grid>
+                <Label Grid.Row="4" Content="Delete student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
+                <Button Grid.Row="5" Content="DELETE" HorizontalAlignment="Center" FontWeight="SemiBold" Height="28" Margin="0,5,0,5" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
