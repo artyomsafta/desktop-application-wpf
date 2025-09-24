@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Task8_WPF.UI.ViewModels;
+﻿using System.Windows.Controls;
 
 namespace Task8_WPF.UI.Views;
 

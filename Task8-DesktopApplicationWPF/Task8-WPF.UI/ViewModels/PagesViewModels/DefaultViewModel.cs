@@ -2,9 +2,9 @@
 
 public class DefaultViewModel : BaseViewModel
 {
-    public CoursesTreeViewModel CoursesTreeViewModel { get; }
+    public TreeViewModel TreeViewModel { get; }
     public DefaultViewModel()
     {
-        CoursesTreeViewModel = new CoursesTreeViewModel();
+        TreeViewModel = new TreeViewModel();
     }
 }

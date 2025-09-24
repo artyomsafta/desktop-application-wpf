@@ -13,7 +13,6 @@ namespace Task8_WPF.UI.ViewModels;
 public class GroupsEditViewModel : BaseViewModel
 {
     private GroupDto _selectedGroup;
-
     public GroupDto SelectedGroup
     {
         get => _selectedGroup;
@@ -26,7 +25,6 @@ public class GroupsEditViewModel : BaseViewModel
     }
 
     private GroupDto _selectedImportGroup;
-
     public GroupDto SelectedImportGroup
     {
         get => _selectedImportGroup;
@@ -39,7 +37,6 @@ public class GroupsEditViewModel : BaseViewModel
     }
 
     private GroupDto _selectedExportGroup;
-
     public GroupDto SelectedExportGroup
     {
         get => _selectedExportGroup;
@@ -52,7 +49,6 @@ public class GroupsEditViewModel : BaseViewModel
     }
 
     private GroupDto _selectedSaveToFileGroup;
-
     public GroupDto SelectedSaveToFileGroup
     {
         get => _selectedSaveToFileGroup;

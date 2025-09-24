@@ -12,6 +12,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <local:CoursesTreeView Grid.Column="0" DataContext="{Binding CoursesTreeViewModel}" />
+        <local:CoursesTreeView Grid.Column="0" DataContext="{Binding TreeViewModel}" />
     </Grid>
 </UserControl>

@@ -3,12 +3,12 @@ using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels;
 
-public class CoursesTreeViewModel : BaseViewModel
+public class TreeViewModel : BaseViewModel
 {
     private TreeViewService _treeViewService;
     public ObservableCollection<CourseViewModel> Courses { get; } = new();
 
-    public CoursesTreeViewModel()
+    public TreeViewModel()
     {
         _treeViewService = new TreeViewService();
         LoadHierarchy();

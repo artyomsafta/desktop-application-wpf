@@ -17,7 +17,7 @@
         <DataTemplate DataType="{x:Type vm:TeachersEditViewModel}">
             <vw:TeachersEditView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CoursesTreeViewModel}">
+        <DataTemplate DataType="{x:Type vm:TreeViewModel}">
             <vw:CoursesTreeView />
         </DataTemplate>
     </Application.Resources>
