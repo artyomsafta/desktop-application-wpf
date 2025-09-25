@@ -85,7 +85,7 @@ public class GroupsEditViewModel : BaseViewModel
             () => ExecuteOperation(
                 () => new GroupDeleteService(_selectedGroup),
                 s => s.DeleteGroup(),
-                $"{SelectedGroup.GroupName} has been deleted."
+                $"Group: {SelectedGroup.GroupName} has been deleted."
             ),
             () => CanExecuteOperation(SelectedGroup)
         );
@@ -94,7 +94,7 @@ public class GroupsEditViewModel : BaseViewModel
             () => ExecuteOperation(
                 () => new ImportFileService(_selectedImportGroup, FileDialogViewModel.SelectedFilePath),
                 s => s.ImportStudents(),
-                $"{SelectedImportGroup.GroupName} has been imported."
+                $"Group: {SelectedImportGroup.GroupName} has been imported."
             ),
             () => CanExecuteOperation(SelectedImportGroup, FileDialogViewModel.SelectedFilePath)
         );
@@ -103,7 +103,7 @@ public class GroupsEditViewModel : BaseViewModel
             () => ExecuteOperation(
                 () => new ExportFileService(_selectedExportGroup, FileDialogViewModel.SavedFilePath),
                 s => s.ExportStudents(),
-                $"{SelectedExportGroup.GroupName} has been exported to file."
+                $"Group: {SelectedExportGroup.GroupName} has been exported to file."
             ),
             () => CanExecuteOperation(SelectedExportGroup, FileDialogViewModel.SavedFilePath)
         );
@@ -112,7 +112,7 @@ public class GroupsEditViewModel : BaseViewModel
             () => ExecuteOperation(
                 () => new CreateDocxFileService(_selectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath),
                 s => s.ExportStudentsToDocx(),
-                $"{SelectedSaveToFileGroup.GroupName} has been exported to file."
+                $"Group: {SelectedSaveToFileGroup.GroupName} has been exported to file."
             ),
             () => CanExecuteOperation(SelectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath)
         );
@@ -121,7 +121,7 @@ public class GroupsEditViewModel : BaseViewModel
             () => ExecuteOperation(
                 () => new CreatePdfFileService(_selectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath),
                 s => s.ExportStudentsToPdf(),
-                $"{SelectedSaveToFileGroup.GroupName} has been exported to file."
+                $"Group: {SelectedSaveToFileGroup.GroupName} has been exported to file."
             ),
             () => CanExecuteOperation(SelectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath)
         );
@@ -137,35 +137,5 @@ public class GroupsEditViewModel : BaseViewModel
         };
 
         window.ShowDialog();
-    }
-
-    private void ExecuteOperation<TService>(
-        Func<TService> serviceInstance,
-        Action<TService> serviceAction,
-        string successMessage)
-    {
-        try
-        {
-            var service = serviceInstance();
-            serviceAction(service);
-            MessageBox.Show($"Operation successful!\nGroup: " + successMessage);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-    }
-
-    private bool CanExecuteOperation<TSelectedObj>(TSelectedObj selectedObj)
-        where TSelectedObj : class
-    {
-        return selectedObj is not null;
-    }
-
-    private bool CanExecuteOperation<TSelectedObj>(TSelectedObj selectedObj, string path)
-        where TSelectedObj : class
-    {
-        return selectedObj is not null
-            && !string.IsNullOrWhiteSpace(path);
     }
 }

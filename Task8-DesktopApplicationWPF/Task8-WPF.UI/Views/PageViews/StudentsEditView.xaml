@@ -35,7 +35,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Grid.Row="2" Content="Select group" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <ComboBox Grid.Row="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" Height="30" Margin="0,5">
+                <ComboBox Grid.Row="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Mode=TwoWay}" Height="30" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -79,10 +79,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Name:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5,0,5,0" />
-                    <TextBox Grid.Column="1" Height="28" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="1" Text="{Binding NewStudentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="28" Margin="0,0,5,0" />
                     <Label Grid.Column="2" Content="Surname:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="0,0,5,0" />
-                    <TextBox Grid.Column="3" Height="28" Margin="0,0,5,0" />
-                    <Button Grid.Column="4" Content="Add student" Height="28" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="3" Text="{Binding NewStudentSurname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="28" Margin="0,0,5,0" />
+                    <Button Grid.Column="4" Content="Add student" Command="{Binding AddNewStudentCommand}" Height="28" Margin="0,0,5,0" />
                 </Grid>
                 <Label Grid.Row="2" Content="Update student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
                 <Grid Grid.Row="3" Margin="0,10,0,20">
