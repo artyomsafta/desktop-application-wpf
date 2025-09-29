@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0"
-                DataContext="{Binding CascadeComboboxViewModel}">
+            DataContext="{Binding CascadeComboboxViewModel}">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -35,7 +35,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Grid.Row="2" Content="Select group" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <ComboBox Grid.Row="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Mode=TwoWay}" Height="30" Margin="0,5">
+                <ComboBox Grid.Row="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" Height="30" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -94,13 +94,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="New name:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5,0,5,0" />
-                    <TextBox Grid.Column="1" Height="28" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="1" Text="{Binding StudentNameToUpdate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="28" Margin="0,0,5,0" />
                     <Label Grid.Column="2" Content="New surname:" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="0,0,5,0" />
-                    <TextBox Grid.Column="3" Height="28" Margin="0,0,5,0" />
-                    <Button Grid.Column="4" Content="Update" Height="28" Margin="0,0,5,0" />
+                    <TextBox Grid.Column="3" Text="{Binding StudentSurnameToUpdate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="28" Margin="0,0,5,0" />
+                    <Button Grid.Column="4" Content="Update" Command="{Binding UpdateStudentCommand}" Height="28" Margin="0,0,5,0" />
                 </Grid>
                 <Label Grid.Row="4" Content="Delete student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <Button Grid.Row="5" Content="DELETE" HorizontalAlignment="Center" FontWeight="SemiBold" Height="28" Margin="0,10,0,20" />
+                <Button Grid.Row="5" Content="DELETE" Command="{Binding DeleteStudentCommand}" HorizontalAlignment="Center" FontWeight="SemiBold" Height="28" Margin="0,10,0,20" />
             </Grid>
         </Border>
     </Grid>
