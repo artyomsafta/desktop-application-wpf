@@ -13,8 +13,7 @@
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0"
-            DataContext="{Binding CascadeComboboxViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -25,7 +24,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="Select course" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <ComboBox Grid.Row="1" ItemsSource="{Binding Courses}" SelectedItem="{Binding SelectedCourse}" Height="30" Margin="0,5">
+                <ComboBox Grid.Row="1" ItemsSource="{Binding CascadeComboboxViewModel.Courses}" SelectedItem="{Binding CascadeComboboxViewModel.SelectedCourse}" Height="30" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -35,7 +34,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Grid.Row="2" Content="Select group" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <ComboBox Grid.Row="3" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" Height="30" Margin="0,5">
+                <ComboBox Grid.Row="3" ItemsSource="{Binding CascadeComboboxViewModel.Groups}" SelectedItem="{Binding CascadeComboboxViewModel.SelectedGroup}" Height="30" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -45,7 +44,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Grid.Row="4" Content="Select student" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Background="White" />
-                <ComboBox Grid.Row="5" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Height="30" Margin="0,5">
+            <ComboBox Grid.Row="5" ItemsSource="{Binding CascadeComboboxViewModel.Students}" SelectedItem="{Binding SelectedStudent}" Height="30" Margin="0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>

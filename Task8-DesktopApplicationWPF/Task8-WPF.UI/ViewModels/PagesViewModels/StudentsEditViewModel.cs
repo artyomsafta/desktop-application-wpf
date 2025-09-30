@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Task8_WPF.BAL.Dto.TreeDtos;
 using Task8_WPF.BAL.Services.StudentsServices;
 using Task8_WPF.UI.ViewModels.PagesViewModels.StudentsEditPageVMs;
 
@@ -6,6 +7,19 @@ namespace Task8_WPF.UI.ViewModels;
 
 public class StudentsEditViewModel : BaseViewModel
 {
+    private StudentsTreeDto _selectedStudent;
+    public StudentsTreeDto SelectedStudent
+    {
+        get => _selectedStudent;
+        set
+        {
+            _selectedStudent = value;
+            OnPropertyChanged();
+            UpdateStudentCommand.NotifyCanExecuteChanged();
+            DeleteStudentCommand.NotifyCanExecuteChanged();
+        }
+    }
+
     private string _newStudentName;
     public string NewStudentName
     {
@@ -78,24 +92,24 @@ public class StudentsEditViewModel : BaseViewModel
                     _studentNameToUpdate,
                     _studentSurnameToUpdate,
                     CascadeComboboxViewModel.SelectedGroup.GroupName,
-                    CascadeComboboxViewModel.SelectedStudent.FullName
+                    _selectedStudent.FullName
                     ),
                 s => s.UpdateStudent(),
                 $"student's data has been updated."
             ),
-            () => CanExecuteOperation(CascadeComboboxViewModel.SelectedStudent, _studentNameToUpdate, _studentSurnameToUpdate)
+            () => CanExecuteOperation(_selectedStudent, _studentNameToUpdate, _studentSurnameToUpdate)
         );
 
         DeleteStudentCommand = new RelayCommand(
             () => ExecuteOperation(
                 () => new StudentDeleteService(
                     CascadeComboboxViewModel.SelectedGroup.GroupName,
-                    CascadeComboboxViewModel.SelectedStudent.FullName
+                    _selectedStudent.FullName
                     ),
                 s => s.DeleteStudent(),
                 $"student has been deleted."
-            )/*,
-            () => CanExecuteOperation(CascadeComboboxViewModel.SelectedStudent)*/ //ТУТ ПРОБЛЕМА!!!
+            ),
+            () => CanExecuteOperation(_selectedStudent)
         );
     }
 }
