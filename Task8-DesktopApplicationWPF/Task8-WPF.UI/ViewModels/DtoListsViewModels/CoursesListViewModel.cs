@@ -19,9 +19,7 @@ public class CoursesListViewModel : BaseViewModel
     private void LoadList()
     {
         Courses.Clear();
-
         var coursesDtos = _coursesService.GetCoursesList();
-
         var sortedCoursesDtos = coursesDtos
             .OrderBy(dto => dto.CourseName)
             .ToList();
@@ -38,4 +36,3 @@ public class CoursesListViewModel : BaseViewModel
         }
     }
 }
-

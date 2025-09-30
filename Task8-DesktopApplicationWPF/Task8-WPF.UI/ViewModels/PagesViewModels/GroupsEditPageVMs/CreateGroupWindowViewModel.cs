@@ -56,7 +56,6 @@ public class CreateGroupWindowViewModel : BaseViewModel
     {
         CoursesListViewModel = new CoursesListViewModel();
         TeachersListViewModel = new TeachersListViewModel();
-
         OkCommand = new RelayCommand(ExecuteOk, CanExecuteOk);
         CancelCommand = new RelayCommand<Window>(ExecuteCancel);
     }

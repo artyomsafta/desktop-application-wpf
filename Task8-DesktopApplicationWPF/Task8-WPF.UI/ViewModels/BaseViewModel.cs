@@ -23,10 +23,7 @@ public abstract class BaseViewModel : INotifyPropertyChanged
         return true;
     }
 
-    protected void ExecuteOperation<TService>(
-        Func<TService> serviceInstance,
-        Action<TService> serviceAction,
-        string successMessage)
+    protected void ExecuteOperation<TService>(Func<TService> serviceInstance, Action<TService> serviceAction,string successMessage)
     {
         try
         {

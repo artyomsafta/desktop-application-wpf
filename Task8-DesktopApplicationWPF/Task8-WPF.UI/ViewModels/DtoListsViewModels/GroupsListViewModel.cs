@@ -7,7 +7,6 @@ namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 public class GroupsListViewModel : BaseViewModel
 {
     private GroupsListService _groupsService;
-
     public ObservableCollection<GroupDto> Groups { get; } = new();
 
     public GroupsListViewModel()
@@ -19,9 +18,7 @@ public class GroupsListViewModel : BaseViewModel
     private void LoadList()
     {
         Groups.Clear();
-
         var groupsDtos = _groupsService.GetGroupsList();
-
         var sortedGroupsDtos = groupsDtos
             .OrderBy(dto => dto.GroupName)
             .ToList();

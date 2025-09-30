@@ -17,7 +17,6 @@ public class TreeViewModel : BaseViewModel
     private void LoadHierarchy()
     {
         Courses.Clear();
-
         var coursesTreeDtos = _treeViewService.GetHierarchyForTreeView();
 
         foreach (var coursesTreeDto in coursesTreeDtos)

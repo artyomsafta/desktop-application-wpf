@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services;
+using Task8_WPF.BAL.Services.DtoListsServices;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 

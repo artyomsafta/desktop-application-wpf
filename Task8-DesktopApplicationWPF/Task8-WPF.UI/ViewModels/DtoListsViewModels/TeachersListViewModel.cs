@@ -7,7 +7,6 @@ namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 public class TeachersListViewModel : BaseViewModel
 {
     private TeachersListService _teachersService;
-
     public ObservableCollection<TeacherDto> Teachers { get; } = new();
 
     public TeachersListViewModel()
@@ -19,9 +18,7 @@ public class TeachersListViewModel : BaseViewModel
     private void LoadList()
     {
         Teachers.Clear();
-
-        var teachersDtos = _teachersService.GetTeachersList();
-        
+        var teachersDtos = _teachersService.GetTeachersList();        
         var sortedTeachersDtos = teachersDtos
             .OrderBy(dto => dto.Name)
             .ToList();

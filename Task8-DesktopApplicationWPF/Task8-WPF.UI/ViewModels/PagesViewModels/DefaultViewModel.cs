@@ -3,6 +3,7 @@
 public class DefaultViewModel : BaseViewModel
 {
     public TreeViewModel TreeViewModel { get; }
+
     public DefaultViewModel()
     {
         TreeViewModel = new TreeViewModel();

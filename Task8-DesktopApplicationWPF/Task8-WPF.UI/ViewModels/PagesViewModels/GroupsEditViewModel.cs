@@ -77,7 +77,6 @@ public class GroupsEditViewModel : BaseViewModel
     {
         GroupsListViewModel = new GroupsListViewModel();
         FileDialogViewModel = new FileDialogViewModel();
-
         OpenCreateGroupWindowCommand = new RelayCommand(OpenSubWindow<CreateGroupWindowView, CreateGroupWindowViewModel>);
         OpenRenameGroupWindowCommand = new RelayCommand(OpenSubWindow<RenameGroupWindowView, RenameGroupWindowViewModel>);
         OpenUpdateTeacherWindowCommand = new RelayCommand(OpenSubWindow<UpdateTeacherWindowView, UpdateTeacherWindowViewModel>);
