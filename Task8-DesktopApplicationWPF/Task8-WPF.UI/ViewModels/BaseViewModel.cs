@@ -60,4 +60,10 @@ public abstract class BaseViewModel : INotifyPropertyChanged
             && !string.IsNullOrWhiteSpace(parameter1)
             && !string.IsNullOrWhiteSpace(parameter2);
     }
+
+    protected bool CanExecuteOperation(string parameter1, string parameter2)
+    {
+        return !string.IsNullOrWhiteSpace(parameter1)
+            && !string.IsNullOrWhiteSpace(parameter2);
+    }
 }

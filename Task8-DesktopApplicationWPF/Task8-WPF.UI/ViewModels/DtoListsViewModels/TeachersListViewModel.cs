@@ -2,7 +2,7 @@
 using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services.DtoListsServices;
 
-namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
+namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 public class TeachersListViewModel : BaseViewModel
 {

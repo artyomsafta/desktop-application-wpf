@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services.GroupsServices;
+using Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
