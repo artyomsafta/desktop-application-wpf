@@ -5,7 +5,7 @@ using Task8_WPF.BAL.Services.DtoListsServices;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.UnitTests;
+namespace Task8_WPF.UnitTests.DtoListsServicesUnitTests;
 
 [TestClass]
 public class ClassGroupsListServiceUnitTests
@@ -14,7 +14,7 @@ public class ClassGroupsListServiceUnitTests
     public void Test_GetGroupsList()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb3HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb4HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
