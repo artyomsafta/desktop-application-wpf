@@ -6,11 +6,18 @@ namespace Task8_WPF.BAL.Services.GroupsServices;
 
 public class GroupDeleteService
 {
-    private WpfAppDbContext _context = new WpfAppDbContext();
+    private WpfAppDbContext _context;
     private GroupDto _selectedGroup;
+
+    public GroupDeleteService(GroupDto selectedGroup, DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+        _selectedGroup = selectedGroup;
+    }
 
     public GroupDeleteService(GroupDto selectedGroup)
     {
+        _context = new WpfAppDbContext();
         _selectedGroup = selectedGroup;
     }
 

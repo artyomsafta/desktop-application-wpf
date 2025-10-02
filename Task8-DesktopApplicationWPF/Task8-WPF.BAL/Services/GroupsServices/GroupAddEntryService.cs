@@ -1,4 +1,5 @@
-﻿using Task8_WPF.BAL.Dto.EntityDtos;
+﻿using Microsoft.EntityFrameworkCore;
+using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
@@ -6,14 +7,30 @@ namespace Task8_WPF.BAL.Services.GroupsServices;
 
 public class GroupAddEntryService
 {
-    private WpfAppDbContext _context = new WpfAppDbContext();
+    private WpfAppDbContext _context;
     private string _groupName;
     private CourseDto _selectedCourse;
     private TeacherDto _selectedTeacher;
     private GroupDto _newGroupEntry;
 
+    public GroupAddEntryService(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher, DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+        _groupName = groupName;
+        _selectedCourse = selectedCourse;
+        _selectedTeacher = selectedTeacher;
+
+        _newGroupEntry = new GroupDto()
+        {
+            GroupName = _groupName,
+            CourseName = _selectedCourse.CourseName,
+            TeacherFullName = $"{_selectedTeacher.Name} {_selectedTeacher.Surname}"
+        };
+    }
+
     public GroupAddEntryService(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher)
     {
+        _context = new WpfAppDbContext();
         _groupName = groupName;
         _selectedCourse = selectedCourse;
         _selectedTeacher = selectedTeacher;
