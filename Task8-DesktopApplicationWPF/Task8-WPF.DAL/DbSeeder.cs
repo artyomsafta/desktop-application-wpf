@@ -12,7 +12,7 @@ public class DbSeeder
         }
 
         // Courses table seeding
-        var cCharpCourse = new Course { Name = "C#/.NET", Description = "C#/.NET mentoring course" };
+        var cCharpCourse = new Course { Name = "C sharp", Description = "C#/.NET mentoring course" };
         var javaCourse = new Course { Name = "Java", Description = "Java Spring mentoring course" };
         var frontEndCourse = new Course { Name = "Front End", Description = "React or Angular or Vue.js mentoring course" };
         var iOsCourse = new Course { Name = "iOS", Description = "iOS (SWIFT) development mentoring course" };
