@@ -1,4 +1,5 @@
-﻿using Task8_WPF.BAL.Dto.EntityDtos;
+﻿using Microsoft.EntityFrameworkCore;
+using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
@@ -6,11 +7,23 @@ namespace Task8_WPF.BAL.Services.StudentsServices;
 
 public class StudentAddEntryService
 {
-    private WpfAppDbContext _context = new WpfAppDbContext();
+    private WpfAppDbContext _context;
     private StudentDto _newStudentEntry;
+
+    public StudentAddEntryService(string name, string surname, string selectedGroupName, DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+        _newStudentEntry = new StudentDto()
+        {
+            Name = name,
+            Surname = surname,
+            GroupName = selectedGroupName
+        };
+    }
 
     public StudentAddEntryService(string name, string surname, string selectedGroupName)
     {
+        _context = new WpfAppDbContext();
         _newStudentEntry = new StudentDto()
         {
             Name = name,

@@ -73,7 +73,7 @@ public class ClassGroupDeleteServiceUnitTests
                 var deleteGroupService = new GroupDeleteService(selectedGroup, options);
                 deleteGroupService.DeleteGroup();
 
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                Assert.Fail("Expected Exception was not thrown.");
             }
             catch (Exception actualError)
             {
@@ -128,7 +128,7 @@ public class ClassGroupDeleteServiceUnitTests
                 var deleteGroupService = new GroupDeleteService(selectedGroup, options);
                 deleteGroupService.DeleteGroup();
 
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                Assert.Fail("Expected Exception was not thrown.");
             }
             catch (Exception actualError)
             {

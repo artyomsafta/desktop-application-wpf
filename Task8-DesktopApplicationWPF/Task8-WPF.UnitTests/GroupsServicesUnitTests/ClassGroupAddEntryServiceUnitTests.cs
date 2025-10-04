@@ -77,7 +77,7 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
                 newGroupEntry.AddGroupEntry();
 
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                Assert.Fail("Expected Exception was not thrown.");
             }
             catch(Exception actualError)
             {
@@ -120,7 +120,7 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
                 newGroupEntry.AddGroupEntry();
 
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                Assert.Fail("Expected Exception was not thrown.");
             }
             catch (Exception actualError)
             {
@@ -163,7 +163,7 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
                 newGroupEntry.AddGroupEntry();
 
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                Assert.Fail("Expected Exception was not thrown.");
             }
             catch (Exception actualError)
             {

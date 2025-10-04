@@ -6,11 +6,18 @@ namespace Task8_WPF.BAL.Services.TeachersServices;
 
 public class TeacherDeleteService
 {
-    private WpfAppDbContext _context = new WpfAppDbContext();
+    private WpfAppDbContext _context;
     private TeacherDto _selectedTeacher;
+
+    public TeacherDeleteService(TeacherDto selectedTeacher, DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+        _selectedTeacher = selectedTeacher;
+    }
 
     public TeacherDeleteService(TeacherDto selectedTeacher)
     {
+        _context = new WpfAppDbContext();
         _selectedTeacher = selectedTeacher;
     }
 

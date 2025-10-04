@@ -1,15 +1,24 @@
-﻿using Task8_WPF.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using Task8_WPF.DAL;
 
 namespace Task8_WPF.BAL.Services.StudentsServices;
 
 public class StudentDeleteService
 {
-    private WpfAppDbContext _context = new WpfAppDbContext();
+    private WpfAppDbContext _context;
     private string _selectedGroupName;
     private string _selectedStudentFullName;
 
+    public StudentDeleteService(string selectedGroupName, string selectedStudentFullName, DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+        _selectedGroupName = selectedGroupName;
+        _selectedStudentFullName = selectedStudentFullName;
+    }
+
     public StudentDeleteService(string selectedGroupName, string selectedStudentFullName)
     {
+        _context = new WpfAppDbContext();
         _selectedGroupName = selectedGroupName;
         _selectedStudentFullName = selectedStudentFullName;
     }
