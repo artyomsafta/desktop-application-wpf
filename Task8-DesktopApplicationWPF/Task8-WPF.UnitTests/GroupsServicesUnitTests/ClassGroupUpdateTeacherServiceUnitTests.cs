@@ -14,7 +14,7 @@ public class ClassGroupUpdateTeacherServiceUnitTests
     public void Test_UpdateTeacher_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb16HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb15HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -39,8 +39,8 @@ public class ClassGroupUpdateTeacherServiceUnitTests
         {
             var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-01", TeacherFullName = "Second Teacher" };
             var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-            var updateTeacherService = new GroupUpdateTeacherService(selectedGroup, selectedTeacher, options);
-            updateTeacherService.UpdateTeacher();
+            var updateTeacherService = new GroupUpdateTeacherService(options);
+            updateTeacherService.UpdateTeacher(selectedGroup, selectedTeacher);
 
             var expectedGroupValue = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-01", TeacherFullName = "First Teacher" };
 
@@ -64,7 +64,7 @@ public class ClassGroupUpdateTeacherServiceUnitTests
     public void Test_UpdateTeacher_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb17HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb16HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -93,8 +93,8 @@ public class ClassGroupUpdateTeacherServiceUnitTests
             {
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
                 var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-                var updateTeacherService = new GroupUpdateTeacherService(selectedGroup, selectedTeacher, options);
-                updateTeacherService.UpdateTeacher();
+                var updateTeacherService = new GroupUpdateTeacherService(options);
+                updateTeacherService.UpdateTeacher(selectedGroup, selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -109,7 +109,7 @@ public class ClassGroupUpdateTeacherServiceUnitTests
     public void Test_UpdateTeacher_TeacherNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb18HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb17HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -138,8 +138,8 @@ public class ClassGroupUpdateTeacherServiceUnitTests
             {
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
                 var selectedTeacher = new TeacherDto { Name = "Third", Surname = "Teacher" };
-                var updateTeacherService = new GroupUpdateTeacherService(selectedGroup, selectedTeacher, options);
-                updateTeacherService.UpdateTeacher();
+                var updateTeacherService = new GroupUpdateTeacherService(options);
+                updateTeacherService.UpdateTeacher(selectedGroup, selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

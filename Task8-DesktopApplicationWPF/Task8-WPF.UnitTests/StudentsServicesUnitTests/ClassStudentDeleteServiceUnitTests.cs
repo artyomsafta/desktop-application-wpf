@@ -12,7 +12,7 @@ public class ClassStudentDeleteServiceUnitTests
     public void Test_DeleteStudent_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb16HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb20HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -50,8 +50,8 @@ public class ClassStudentDeleteServiceUnitTests
             var selectedGroupName = "TestGrp-01";
             var selectedStudentFullName = "Test Student";
 
-            var deleteStudentService = new StudentDeleteService(selectedGroupName, selectedStudentFullName, options);
-            deleteStudentService.DeleteStudent();
+            var deleteStudentService = new StudentDeleteService(options);
+            deleteStudentService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
             Assert.AreEqual(2, context.Students
                                 .Include(g => g.Group)
@@ -65,7 +65,7 @@ public class ClassStudentDeleteServiceUnitTests
     public void Test_DeleteStudent_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb17HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb21HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -107,8 +107,8 @@ public class ClassStudentDeleteServiceUnitTests
                 var selectedGroupName = "TestGrp-06";
                 var selectedStudentFullName = "Test Student";
 
-                var deleteStudentService = new StudentDeleteService(selectedGroupName, selectedStudentFullName, options);
-                deleteStudentService.DeleteStudent();
+                var deleteStudentService = new StudentDeleteService(options);
+                deleteStudentService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -123,7 +123,7 @@ public class ClassStudentDeleteServiceUnitTests
     public void Test_DeleteStudent_StudentNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb18HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb22HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -164,8 +164,8 @@ public class ClassStudentDeleteServiceUnitTests
                 var selectedGroupName = "TestGrp-01";
                 var selectedStudentFullName = "Test Student";
 
-                var deleteStudentService = new StudentDeleteService(selectedGroupName, selectedStudentFullName, options);
-                deleteStudentService.DeleteStudent();
+                var deleteStudentService = new StudentDeleteService(options);
+                deleteStudentService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

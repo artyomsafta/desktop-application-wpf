@@ -13,7 +13,7 @@ public class ClassGroupAddEntryServiceUnitTests
     public void Test_AddGroupEntry_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb6HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb5HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -36,8 +36,8 @@ public class ClassGroupAddEntryServiceUnitTests
             var newGroupName = "TestGrp-06";
             var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
             var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-            var addGroupService = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
-            addGroupService.AddGroupEntry();
+            var addGroupService = new GroupAddEntryService(options);
+            addGroupService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
             Assert.AreEqual(6, context.Groups.Count());
         }
@@ -47,7 +47,7 @@ public class ClassGroupAddEntryServiceUnitTests
     public void Test_AddGroupEntry_NameTakenCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb7HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb6HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -74,8 +74,8 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupName = "TestGrp-05";
                 var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
                 var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-                var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
-                newGroupEntry.AddGroupEntry();
+                var newGroupEntry = new GroupAddEntryService(options);
+                newGroupEntry.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -90,7 +90,7 @@ public class ClassGroupAddEntryServiceUnitTests
     public void Test_AddGroupEntry_CourseNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb8HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb7HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -117,8 +117,8 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupName = "TestGrp-06";
                 var selectedCourse = new CourseDto { CourseName = "WRONG course", Description = "This is WRONG course" };
                 var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-                var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
-                newGroupEntry.AddGroupEntry();
+                var newGroupEntry = new GroupAddEntryService(options);
+                newGroupEntry.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -133,7 +133,7 @@ public class ClassGroupAddEntryServiceUnitTests
     public void Test_AddGroupEntry_TeacherNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb9HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb8HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -160,8 +160,8 @@ public class ClassGroupAddEntryServiceUnitTests
                 var newGroupName = "TestGrp-06";
                 var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
                 var selectedTeacher = new TeacherDto { Name = "WRONG", Surname = "Teacher" };
-                var newGroupEntry = new GroupAddEntryService(newGroupName, selectedCourse, selectedTeacher, options);
-                newGroupEntry.AddGroupEntry();
+                var newGroupEntry = new GroupAddEntryService(options);
+                newGroupEntry.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

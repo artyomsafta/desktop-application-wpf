@@ -2,7 +2,7 @@
 
 public class GroupDto
 {
-    public string? GroupName { get; set; }
-    public string? CourseName { get; set; }
-    public string? TeacherFullName { get; set; }
+    public string GroupName { get; set; }
+    public string CourseName { get; set; }
+    public string TeacherFullName { get; set; }
 }

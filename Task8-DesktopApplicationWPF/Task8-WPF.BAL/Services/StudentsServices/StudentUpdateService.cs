@@ -6,49 +6,37 @@ namespace Task8_WPF.BAL.Services.StudentsServices;
 public class StudentUpdateService
 {
     private WpfAppDbContext _context;
-    private string _studentNewName;
-    private string _studentNewSurname;
-    private string _selectedGroupName;
-    private string _selectedStudentFullName;
 
-    public StudentUpdateService(string name, string surname, string selectedGroupName, string selectedStudentFullName, DbContextOptions<WpfAppDbContext> options)
+    public StudentUpdateService(DbContextOptions<WpfAppDbContext> options)
     {
         _context = new WpfAppDbContext(options);
-        _studentNewName = name;
-        _studentNewSurname = surname;
-        _selectedGroupName = selectedGroupName;
-        _selectedStudentFullName = selectedStudentFullName;
     }
 
-    public StudentUpdateService(string name, string surname, string selectedGroupName, string selectedStudentFullName)
+    public StudentUpdateService()
     {
         _context = new WpfAppDbContext();
-        _studentNewName = name;
-        _studentNewSurname = surname;
-        _selectedGroupName = selectedGroupName;
-        _selectedStudentFullName = selectedStudentFullName;
     }
 
-    public void UpdateStudent()
+    public void UpdateStudent(string name, string surname, string selectedGroupName, string selectedStudentFullName)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == _selectedGroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroupName);
 
         if (group is null)
         {
-            throw new Exception($"Group '{_selectedGroupName}' not found!");
+            throw new Exception($"Group '{selectedGroupName}' not found!");
         }
 
         var student = _context.Students
             .Where(g => g.GroupId == group.Id)
-            .FirstOrDefault(s => s.Name + " " + s.Surname == _selectedStudentFullName);
+            .FirstOrDefault(s => s.Name + " " + s.Surname == selectedStudentFullName);
 
         if (student is null)
         {
-            throw new Exception($"Student '{_selectedStudentFullName}' not found!");
+            throw new Exception($"Student '{selectedStudentFullName}' not found!");
         }
 
-        student.Name = _studentNewName;
-        student.Surname = _studentNewSurname;
+        student.Name = name;
+        student.Surname = surname;
 
         _context.SaveChanges();
     }

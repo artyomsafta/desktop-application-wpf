@@ -7,33 +7,27 @@ namespace Task8_WPF.BAL.Services.GroupsServices;
 public class GroupUpdateTeacherService
 {
     private WpfAppDbContext _context;
-    private string _selectedGroupName;
-    private TeacherDto _teacherToUpdate;
 
-    public GroupUpdateTeacherService(GroupDto selectedGroup, TeacherDto selectedTeacher, DbContextOptions<WpfAppDbContext> options)
+    public GroupUpdateTeacherService(DbContextOptions<WpfAppDbContext> options)
     {
         _context = new WpfAppDbContext(options);
-        _selectedGroupName = selectedGroup.GroupName;
-        _teacherToUpdate = selectedTeacher;
     }
 
-    public GroupUpdateTeacherService(GroupDto selectedGroup, TeacherDto selectedTeacher)
+    public GroupUpdateTeacherService()
     {
         _context = new WpfAppDbContext();
-        _selectedGroupName = selectedGroup.GroupName;
-        _teacherToUpdate = selectedTeacher;
     }
 
-    public void UpdateTeacher()
+    public void UpdateTeacher(GroupDto selectedGroup, TeacherDto selectedTeacher)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == _selectedGroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroup.GroupName);
 
         if (group is null)
         {
-            throw new Exception($"Group '{_selectedGroupName}' not found!");
+            throw new Exception($"Group '{selectedGroup.GroupName}' not found!");
         }
 
-        var teacherFullName = $"{_teacherToUpdate.Name} {_teacherToUpdate.Surname}";
+        var teacherFullName = $"{selectedTeacher.Name} {selectedTeacher.Surname}";
         var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
 
         if (teacher is null)

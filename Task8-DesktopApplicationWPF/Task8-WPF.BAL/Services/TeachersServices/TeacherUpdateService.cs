@@ -7,29 +7,20 @@ namespace Task8_WPF.BAL.Services.TeachersServices;
 public class TeacherUpdateService
 {
     private WpfAppDbContext _context;
-    private string _teacherNewName;
-    private string _teacherNewSurname;
-    private TeacherDto _selectedTeacher;
 
-    public TeacherUpdateService(string name, string surname, TeacherDto selectedTeacher, DbContextOptions<WpfAppDbContext> options)
+    public TeacherUpdateService(DbContextOptions<WpfAppDbContext> options)
     {
         _context = new WpfAppDbContext(options);
-        _teacherNewName = name;
-        _teacherNewSurname = surname;
-        _selectedTeacher = selectedTeacher;
     }
 
-    public TeacherUpdateService(string name, string surname, TeacherDto selectedTeacher)
+    public TeacherUpdateService()
     {
         _context = new WpfAppDbContext();
-        _teacherNewName = name;
-        _teacherNewSurname = surname;
-        _selectedTeacher = selectedTeacher;
     }
 
-    public void UpdateTeacher()
+    public void UpdateTeacher(string name, string surname, TeacherDto selectedTeacher)
     {
-        var teacherFullName = _selectedTeacher.Name + " " + _selectedTeacher.Surname;
+        var teacherFullName = selectedTeacher.Name + " " + selectedTeacher.Surname;
         var teacher = _context.Teachers
             .FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
 
@@ -38,8 +29,8 @@ public class TeacherUpdateService
             throw new Exception($"Teacher '{teacherFullName}' not found!");
         }
 
-        teacher.Name = _teacherNewName;
-        teacher.Surname = _teacherNewSurname;
+        teacher.Name = name;
+        teacher.Surname = surname;
 
         _context.SaveChanges();
     }

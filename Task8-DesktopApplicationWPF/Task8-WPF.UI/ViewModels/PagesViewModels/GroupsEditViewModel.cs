@@ -83,8 +83,8 @@ public class GroupsEditViewModel : BaseViewModel
 
         DeleteGroupCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new GroupDeleteService(_selectedGroup),
-                s => s.DeleteGroup(),
+                () => new GroupDeleteService(),
+                s => s.DeleteGroup(_selectedGroup),
                 $"Group: {SelectedGroup.GroupName} has been deleted."
             ),
             () => CanExecuteOperation(SelectedGroup)
@@ -92,8 +92,8 @@ public class GroupsEditViewModel : BaseViewModel
 
         ImportStudentsCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new ImportFileService(_selectedImportGroup, FileDialogViewModel.SelectedFilePath),
-                s => s.ImportStudents(),
+                () => new ImportFileService(),
+                s => s.ImportStudents(_selectedImportGroup, FileDialogViewModel.SelectedFilePath),
                 $"Group: {SelectedImportGroup.GroupName} has been imported."
             ),
             () => CanExecuteOperation(SelectedImportGroup, FileDialogViewModel.SelectedFilePath)
@@ -101,8 +101,8 @@ public class GroupsEditViewModel : BaseViewModel
 
         ExportStudentsCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new ExportFileService(_selectedExportGroup, FileDialogViewModel.SavedFilePath),
-                s => s.ExportStudents(),
+                () => new ExportFileService(),
+                s => s.ExportStudents(_selectedExportGroup, FileDialogViewModel.SavedFilePath),
                 $"Group: {SelectedExportGroup.GroupName} has been exported to file."
             ),
             () => CanExecuteOperation(SelectedExportGroup, FileDialogViewModel.SavedFilePath)
@@ -110,8 +110,8 @@ public class GroupsEditViewModel : BaseViewModel
 
         SaveStudentsToDocxCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new CreateDocxFileService(_selectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath),
-                s => s.ExportStudentsToDocx(),
+                () => new CreateDocxFileService(),
+                s => s.ExportStudentsToDocx(_selectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath),
                 $"Group: {SelectedSaveToFileGroup.GroupName} has been exported to file."
             ),
             () => CanExecuteOperation(SelectedSaveToFileGroup, FileDialogViewModel.SelectedFolderPath)

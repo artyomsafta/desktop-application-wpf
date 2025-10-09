@@ -14,7 +14,7 @@ public class ClassStudentUpdateServiceUnitTests
     public void Test_UpdateStudent_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb19HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb23HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -56,8 +56,8 @@ public class ClassStudentUpdateServiceUnitTests
             var studentNewSurname = "Gates";
             var selectedGroupName = "TestGrp-01";
             var selectedStudentFullName = "Test Student";
-            var updateStudentService = new StudentUpdateService(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName, options);
-            updateStudentService.UpdateStudent();
+            var updateStudentService = new StudentUpdateService(options);
+            updateStudentService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
             var expectedStudentValue = new StudentDto { Name = "Bill", Surname = "Gates", GroupName = "TestGrp-01" };
 
@@ -80,7 +80,7 @@ public class ClassStudentUpdateServiceUnitTests
     public void Test_UpdateStudent_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb20HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb24HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -124,8 +124,8 @@ public class ClassStudentUpdateServiceUnitTests
             var studentNewSurname = "Gates";
             var selectedGroupName = "TestGrp-06";
             var selectedStudentFullName = "Test Student";
-            var updateStudentService = new StudentUpdateService(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName, options);
-            updateStudentService.UpdateStudent();
+            var updateStudentService = new StudentUpdateService(options);
+            updateStudentService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }
@@ -139,7 +139,7 @@ public class ClassStudentUpdateServiceUnitTests
     public void Test_UpdateStudent_StudentNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb21HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb25HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -182,8 +182,8 @@ public class ClassStudentUpdateServiceUnitTests
             var studentNewSurname = "Gates";
             var selectedGroupName = "TestGrp-01";
             var selectedStudentFullName = "Test Student";
-            var updateStudentService = new StudentUpdateService(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName, options);
-            updateStudentService.UpdateStudent();
+            var updateStudentService = new StudentUpdateService(options);
+            updateStudentService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }

@@ -79,8 +79,8 @@ public class TeachersEditViewModel : BaseViewModel
 
         AddNewTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherAddEntryService(_newTeacherName, _newTeacherSurname),
-                t => t.AddTeacherEntry(),
+                () => new TeacherAddEntryService(),
+                t => t.AddTeacherEntry(_newTeacherName, _newTeacherSurname),
                 $"teacher has been added."
             ),
             () => CanExecuteOperation(_newTeacherName, _newTeacherSurname)
@@ -88,8 +88,8 @@ public class TeachersEditViewModel : BaseViewModel
 
         UpdateTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherUpdateService(_teacherNameToUpdate, _teacherSurnameToUpdate, _selectedTeacher),
-                t => t.UpdateTeacher(),
+                () => new TeacherUpdateService(),
+                t => t.UpdateTeacher(_teacherNameToUpdate, _teacherSurnameToUpdate, _selectedTeacher),
                 $"teacher's data has been updated."
             ),
             () => CanExecuteOperation(_selectedTeacher, _teacherNameToUpdate, _teacherSurnameToUpdate)
@@ -97,8 +97,8 @@ public class TeachersEditViewModel : BaseViewModel
 
         DeleteTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherDeleteService(_selectedTeacher),
-                t => t.DeleteTeacher(),
+                () => new TeacherDeleteService(),
+                t => t.DeleteTeacher(_selectedTeacher),
                 $"teacher has been deleted."
             ),
             () => CanExecuteOperation(_selectedTeacher)

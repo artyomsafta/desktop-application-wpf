@@ -13,7 +13,7 @@ public class ClassGroupDeleteServiceUnitTests
     public void Test_DeleteGroup_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb10HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb9HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -34,8 +34,8 @@ public class ClassGroupDeleteServiceUnitTests
             context.SaveChanges();
 
             var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-            var deleteGroupService = new GroupDeleteService(selectedGroup, options);
-            deleteGroupService.DeleteGroup();
+            var deleteGroupService = new GroupDeleteService(options);
+            deleteGroupService.DeleteGroup(selectedGroup);
 
             Assert.AreEqual(4, context.Groups.Count());
         }
@@ -45,7 +45,7 @@ public class ClassGroupDeleteServiceUnitTests
     public void Test_DeleteGroup_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb11HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb10HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -70,8 +70,8 @@ public class ClassGroupDeleteServiceUnitTests
             try
             {
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-                var deleteGroupService = new GroupDeleteService(selectedGroup, options);
-                deleteGroupService.DeleteGroup();
+                var deleteGroupService = new GroupDeleteService(options);
+                deleteGroupService.DeleteGroup(selectedGroup);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -86,7 +86,7 @@ public class ClassGroupDeleteServiceUnitTests
     public void Test_DeleteGroup_GroupNotEmptyCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb12HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb11HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -125,8 +125,8 @@ public class ClassGroupDeleteServiceUnitTests
             try
             {
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-01", TeacherFullName = "First Teacher" };
-                var deleteGroupService = new GroupDeleteService(selectedGroup, options);
-                deleteGroupService.DeleteGroup();
+                var deleteGroupService = new GroupDeleteService(options);
+                deleteGroupService.DeleteGroup(selectedGroup);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

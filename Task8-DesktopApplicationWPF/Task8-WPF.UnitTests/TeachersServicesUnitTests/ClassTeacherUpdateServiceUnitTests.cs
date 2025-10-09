@@ -14,7 +14,7 @@ public class ClassTeacherUpdateServiceUnitTests
     public void Test_UpdateTeacher_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb26HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb30HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -40,8 +40,8 @@ public class ClassTeacherUpdateServiceUnitTests
             var teacherNewName = "Second";
             var teacherNewSurname = "Teacher";
             var selectedTeacher = new TeacherDto { Name = "Teacher", Surname = "Third" };
-            var updateTeacherService = new TeacherUpdateService(teacherNewName, teacherNewSurname, selectedTeacher, options);
-            updateTeacherService.UpdateTeacher();
+            var updateTeacherService = new TeacherUpdateService(options);
+            updateTeacherService.UpdateTeacher(teacherNewName, teacherNewSurname, selectedTeacher);
 
             var expectedTeacherValue = new TeacherDto { Name = "Second", Surname = "Teacher" };
 
@@ -62,7 +62,7 @@ public class ClassTeacherUpdateServiceUnitTests
     public void Test_UpdateTeacher_TeacherNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb27HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb31HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -90,8 +90,8 @@ public class ClassTeacherUpdateServiceUnitTests
             var teacherNewName = "Second";
             var teacherNewSurname = "Teacher";
             var selectedTeacher = new TeacherDto { Name = "Teacher", Surname = "Third" };
-            var updateTeacherService = new TeacherUpdateService(teacherNewName, teacherNewSurname, selectedTeacher, options);
-            updateTeacherService.UpdateTeacher();
+            var updateTeacherService = new TeacherUpdateService(options);
+            updateTeacherService.UpdateTeacher(teacherNewName, teacherNewSurname, selectedTeacher);
 
             Assert.Fail("Expected Exception was not thrown.");
         }

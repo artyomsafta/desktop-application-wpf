@@ -14,7 +14,7 @@ public class ClassGroupsListServiceUnitTests
     public void Test_GetGroupsList()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb4HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb2HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))

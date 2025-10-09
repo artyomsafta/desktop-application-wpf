@@ -71,9 +71,11 @@ public class CreateGroupWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupAddEntryService = new GroupAddEntryService(_groupName, SelectedCourse, SelectedTeacher);
-            _groupAddEntryService.AddGroupEntry();
-            MessageBox.Show($"Operation successful!\nNew group name: {GroupName},\ncourse: {SelectedCourse.CourseName},\nteacher:{SelectedTeacher.Name} {SelectedTeacher.Surname}.");
+            _groupAddEntryService = new GroupAddEntryService();
+            _groupAddEntryService.AddGroupEntry(_groupName, SelectedCourse, SelectedTeacher);
+            MessageBox.Show($"Operation successful!\nNew group name: {GroupName},\n" +
+                            $"course: {SelectedCourse.CourseName},\n" +
+                            $"teacher:{SelectedTeacher.Name} {SelectedTeacher.Surname}.");
         }
         catch (Exception ex)
         { 

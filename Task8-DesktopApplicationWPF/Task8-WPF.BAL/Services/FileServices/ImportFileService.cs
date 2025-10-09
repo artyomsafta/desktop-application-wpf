@@ -9,33 +9,30 @@ namespace Task8_WPF.BAL.Services.FileServices;
 public class ImportFileService
 {
     private WpfAppDbContext _context;
-    private string _filePath;
-    private string _selectedGroupName;
-    private List<StudentDto> _studentsList;
 
-    public ImportFileService(GroupDto selectedGroup, string path)
+    public ImportFileService()
     {
         _context = new WpfAppDbContext();
-        _filePath = path;
-        _selectedGroupName = selectedGroup.GroupName;
-        _studentsList = this.GetStudentsList();
     }
 
-    public void ImportStudents()
+    public void ImportStudents(GroupDto selectedGroup, string path)
     {
-        if (_studentsList is null || _studentsList.Count is 0)
+        var selectedGroupName = selectedGroup.GroupName;
+        var studentsList = this.ParseStudents(path, selectedGroupName);
+
+        if (studentsList is null || studentsList.Count is 0)
         {
             throw new Exception("Error! File has no data or wrong group selected for import.");
         }
 
         var groupId = _context.Groups
-            .Where(g => g.Name == _selectedGroupName)
+            .Where(g => g.Name == selectedGroupName)
             .Select(g => g.Id)
             .FirstOrDefault();
 
         if (groupId == Guid.Empty)
         {
-            throw new Exception($"Group {_selectedGroupName} not found!");
+            throw new Exception($"Group {selectedGroupName} not found!");
         }
 
         var studentsToDelete = _context.Students
@@ -47,7 +44,7 @@ public class ImportFileService
 
         var studentsToAdd = new List<Student>();
 
-        foreach (var student in _studentsList)
+        foreach (var student in studentsList)
         {
             studentsToAdd.Add(new Student
             {
@@ -62,19 +59,11 @@ public class ImportFileService
         _context.SaveChanges();
     }
 
-    private List<StudentDto> GetStudentsList()
-    {
-        var parsedList = this.ParseStudents();
-        return parsedList
-            .Where(g => g.GroupName == _selectedGroupName)
-            .ToList();
-    }
-
-    private List<StudentDto> ParseStudents()
+    private List<StudentDto> ParseStudents(string path, string selectedGroupName)
     {
         var students = new List<StudentDto>();
 
-        using (var reader = new StreamReader(_filePath))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Read();
@@ -87,6 +76,8 @@ public class ImportFileService
             }
         }
 
-        return students;
+        return students
+            .Where(g => g.GroupName == selectedGroupName)
+            .ToList();
     }
 }

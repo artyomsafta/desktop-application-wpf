@@ -14,7 +14,7 @@ public class ClassStudentsListServiceUnitTests
     public void Test_GetStudentsList()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb28HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb3HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))

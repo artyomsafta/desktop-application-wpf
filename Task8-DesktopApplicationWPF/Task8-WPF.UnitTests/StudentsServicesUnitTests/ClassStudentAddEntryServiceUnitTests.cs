@@ -12,7 +12,7 @@ public class ClassStudentAddEntryServiceUnitTests
     public void Test_AddStudentEntry_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb16HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb18HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -50,8 +50,8 @@ public class ClassStudentAddEntryServiceUnitTests
             var newStudentSurname = "Student";
             var selectedGroupName = "TestGrp-01";
 
-            var addStudentService = new StudentAddEntryService(newStudentName, newStudentSurname, selectedGroupName, options);
-            addStudentService.AddStudentEntry();
+            var addStudentService = new StudentAddEntryService(options);
+            addStudentService.AddStudentEntry(newStudentName, newStudentSurname, selectedGroupName);
 
             Assert.AreEqual(3, context.Students
                                 .Include(g => g.Group)
@@ -65,7 +65,7 @@ public class ClassStudentAddEntryServiceUnitTests
     public void Test_AddStudentEntry_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb17HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb19HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -107,8 +107,8 @@ public class ClassStudentAddEntryServiceUnitTests
 
             try
             {
-                var addStudentService = new StudentAddEntryService(newStudentName, newStudentSurname, selectedGroupName, options);
-                addStudentService.AddStudentEntry();
+                var addStudentService = new StudentAddEntryService(options);
+                addStudentService.AddStudentEntry(newStudentName, newStudentSurname, selectedGroupName);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

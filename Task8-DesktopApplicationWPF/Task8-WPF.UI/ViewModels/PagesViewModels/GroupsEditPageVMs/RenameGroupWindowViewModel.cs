@@ -56,8 +56,8 @@ public class RenameGroupWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupRenameService = new GroupRenameService(_groupNewName, SelectedGroup);
-            _groupRenameService.RenameGroup();
+            _groupRenameService = new GroupRenameService();
+            _groupRenameService.RenameGroup(_groupNewName, SelectedGroup);
             MessageBox.Show($"Operation successful!\nGroup has been renamed.\nGroup new name: {GroupNewName}.");
         }
         catch (Exception ex)

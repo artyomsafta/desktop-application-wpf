@@ -8,25 +8,18 @@ namespace Task8_WPF.BAL.Services.FileServices;
 
 public class CreateDocxFileService
 {
-    private string _fullPath;
-    private string _selectedGroupName;
-    private List<StudentDto> _studentsList;
-
-    public CreateDocxFileService(GroupDto selectedGroup, string folderPath)
+    public void ExportStudentsToDocx(GroupDto selectedGroup, string folderPath)
     {
-        _selectedGroupName = selectedGroup.GroupName;
-        _fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroup.GroupName}.docx");
-        _studentsList = new StudentsListService().GetStudentsList(_selectedGroupName);
-    }
+        var selectedGroupName = selectedGroup.GroupName;
+        var fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroupName}.docx");
+        var studentsList = new StudentsListService().GetStudentsList(selectedGroupName);
 
-    public void ExportStudentsToDocx()
-    {
-        if (_studentsList is null || _studentsList.Count is 0)
+        if (studentsList is null || studentsList.Count is 0)
         {
             throw new Exception("Error! Group has no students or wrong group selected for export.");
         }
 
-        using (var docx = WordprocessingDocument.Create(_fullPath, WordprocessingDocumentType.Document))
+        using (var docx = WordprocessingDocument.Create(fullPath, WordprocessingDocumentType.Document))
         {
             MainDocumentPart mainPart = docx.AddMainDocumentPart();
             mainPart.Document = new Document(new Body());
@@ -42,14 +35,14 @@ public class CreateDocxFileService
             );
             table.Append(headerRow);
 
-            for (int i = 0; i < _studentsList.Count; i++)
+            for (int i = 0; i < studentsList.Count; i++)
             {
                 TableRow row = new TableRow(
                     CreateCell((i + 1).ToString()),
                     CreateCell(" "),
-                    CreateCell(_studentsList[i].Name),
+                    CreateCell(studentsList[i].Name),
                     CreateCell(" "),
-                    CreateCell(_studentsList[i].Surname)
+                    CreateCell(studentsList[i].Surname)
                 );
                 table.Append(row);
             }

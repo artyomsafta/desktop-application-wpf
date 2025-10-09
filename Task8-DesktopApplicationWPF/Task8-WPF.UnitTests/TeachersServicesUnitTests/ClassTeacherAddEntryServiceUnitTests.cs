@@ -12,7 +12,7 @@ public class ClassTeacherAddEntryServiceUnitTests
     public void Test_AddTeacherEntry_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb22HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb26HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -35,8 +35,8 @@ public class ClassTeacherAddEntryServiceUnitTests
             var newTeacherName = "Third";
             var newTeacherSurname = "Teacher";
 
-            var addTeacherService = new TeacherAddEntryService(newTeacherName, newTeacherSurname, options);
-            addTeacherService.AddTeacherEntry();
+            var addTeacherService = new TeacherAddEntryService(options);
+            addTeacherService.AddTeacherEntry(newTeacherName, newTeacherSurname);
 
             Assert.AreEqual(3, context.Teachers.Count());
         }

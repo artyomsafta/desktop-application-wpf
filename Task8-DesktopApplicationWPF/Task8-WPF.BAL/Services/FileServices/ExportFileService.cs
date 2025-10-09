@@ -6,20 +6,11 @@ namespace Task8_WPF.BAL.Services.FileServices;
 
 public class ExportFileService
 {
-    private string _filePath;
-    private string _selectedGroupName;
-    private List<StudentDto> _studentsList;
-
-    public ExportFileService(GroupDto selectedGroup, string path)
+    public void ExportStudents(GroupDto selectedGroup, string path)
     {
-        _filePath = path;
-        _selectedGroupName = selectedGroup.GroupName;
-        _studentsList = new StudentsListService().GetStudentsList(_selectedGroupName);
-    }
+        var studentsList = new StudentsListService().GetStudentsList(selectedGroup.GroupName);
 
-    public void ExportStudents()
-    {
-        if (_studentsList is null || _studentsList.Count is 0)
+        if (studentsList is null || studentsList.Count is 0)
         {
             throw new Exception("Error! Group has no students or wrong group selected for export.");
         }
@@ -29,10 +20,10 @@ public class ExportFileService
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Select(p => p.Name));
 
-        using (var writer = new StreamWriter(_filePath, append: false))
+        using (var writer = new StreamWriter(path, append: false))
         {
             writer.WriteLine(fileHeader);
-            foreach (var student in _studentsList)
+            foreach (var student in studentsList)
             { 
                 writer.WriteLine($"{student.Name},{student.Surname},{student.GroupName}");
             }

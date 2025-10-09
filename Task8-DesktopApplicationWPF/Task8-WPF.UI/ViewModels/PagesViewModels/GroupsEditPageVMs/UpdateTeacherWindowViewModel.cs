@@ -58,8 +58,8 @@ public class UpdateTeacherWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupUpdateTeacherService = new GroupUpdateTeacherService(_selectedGroup, SelectedTeacher);
-            _groupUpdateTeacherService.UpdateTeacher();
+            _groupUpdateTeacherService = new GroupUpdateTeacherService();
+            _groupUpdateTeacherService.UpdateTeacher(_selectedGroup, SelectedTeacher);
             MessageBox.Show($"Operation successful!\nTeacher has been updated.\nNew teacher's name: {SelectedTeacher.Name} {SelectedTeacher.Surname}.");
         }
         catch (Exception ex)

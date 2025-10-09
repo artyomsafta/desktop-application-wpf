@@ -8,66 +8,45 @@ namespace Task8_WPF.BAL.Services.GroupsServices;
 public class GroupAddEntryService
 {
     private WpfAppDbContext _context;
-    private string _groupName;
-    private CourseDto _selectedCourse;
-    private TeacherDto _selectedTeacher;
-    private GroupDto _newGroupEntry;
 
-    public GroupAddEntryService(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher, DbContextOptions<WpfAppDbContext> options)
+    public GroupAddEntryService(DbContextOptions<WpfAppDbContext> options)
     {
         _context = new WpfAppDbContext(options);
-        _groupName = groupName;
-        _selectedCourse = selectedCourse;
-        _selectedTeacher = selectedTeacher;
-
-        _newGroupEntry = new GroupDto()
-        {
-            GroupName = _groupName,
-            CourseName = _selectedCourse.CourseName,
-            TeacherFullName = $"{_selectedTeacher.Name} {_selectedTeacher.Surname}"
-        };
     }
 
-    public GroupAddEntryService(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher)
+    public GroupAddEntryService()
     {
         _context = new WpfAppDbContext();
-        _groupName = groupName;
-        _selectedCourse = selectedCourse;
-        _selectedTeacher = selectedTeacher;
-
-        _newGroupEntry = new GroupDto()
-        {
-            GroupName = _groupName,
-            CourseName = _selectedCourse.CourseName,
-            TeacherFullName = $"{_selectedTeacher.Name} {_selectedTeacher.Surname}"
-        };
     }
 
-    public void AddGroupEntry()
+    public void AddGroupEntry(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher)
     {
-        if (_context.Groups.Any(g => g.Name == _newGroupEntry.GroupName))
+        var courseName = selectedCourse.CourseName;
+        var teacherFullName = $"{selectedTeacher.Name} {selectedTeacher.Surname}";
+
+        if (_context.Groups.Any(g => g.Name == groupName))
         {
             throw new Exception("This group already exists! Try another name");
         }
 
-        var course = _context.Courses.FirstOrDefault(c => c.Name == _newGroupEntry.CourseName);
+        var course = _context.Courses.FirstOrDefault(c => c.Name == courseName);
 
         if (course is null)
         {
-            throw new Exception($"Course '{_newGroupEntry.CourseName}' not found!");
+            throw new Exception($"Course '{courseName}' not found!");
         }
 
-        var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == _newGroupEntry.TeacherFullName);
+        var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
 
         if (teacher is null)
         {
-            throw new Exception($"Teacher '{_newGroupEntry.TeacherFullName}' not found!");
+            throw new Exception($"Teacher '{teacherFullName}' not found!");
         }
 
         _context.Groups.Add(new Group
         {
             Id = Guid.NewGuid(),
-            Name = _newGroupEntry.GroupName,
+            Name = groupName,
             CourseId = course.Id,
             TeacherId = teacher.Id
         });

@@ -7,38 +7,32 @@ namespace Task8_WPF.BAL.Services.GroupsServices;
 public class GroupRenameService
 {
     private WpfAppDbContext _context;
-    private string _groupNewName;
-    private string _selectedGroupName;
 
-    public GroupRenameService(string groupNewName, GroupDto selectedGroup, DbContextOptions<WpfAppDbContext> options)
+    public GroupRenameService(DbContextOptions<WpfAppDbContext> options)
     {
         _context = new WpfAppDbContext(options);
-        _groupNewName = groupNewName;
-        _selectedGroupName = selectedGroup.GroupName;
     }
 
-    public GroupRenameService(string groupNewName, GroupDto selectedGroup)
+    public GroupRenameService()
     {
         _context = new WpfAppDbContext();
-        _groupNewName = groupNewName;
-        _selectedGroupName = selectedGroup.GroupName;
     }
 
-    public void RenameGroup()
+    public void RenameGroup(string groupNewName, GroupDto selectedGroup)
     {
-        if (_context.Groups.Any(g => g.Name == _groupNewName))
+        if (_context.Groups.Any(g => g.Name == groupNewName))
         {
             throw new Exception("This group already exists! Try another name");
         }
 
-        var group = _context.Groups.FirstOrDefault(g => g.Name == _selectedGroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroup.GroupName);
 
         if (group is null)
         {
-            throw new Exception($"Group {_selectedGroupName} not found!");
+            throw new Exception($"Group {selectedGroup.GroupName} not found!");
         }
 
-        group.Name = _groupNewName;
+        group.Name = groupNewName;
         _context.SaveChanges();
     }
 }

@@ -14,7 +14,7 @@ public class ClassGroupRenameServiceUnitTests
     public void Test_RenameGroup_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb13HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb12HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -39,8 +39,8 @@ public class ClassGroupRenameServiceUnitTests
         {
             var groupNewName = "TestGrp-05";
             var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-            var renameGroupService = new GroupRenameService(groupNewName, selectedGroup, options);
-            renameGroupService.RenameGroup();
+            var renameGroupService = new GroupRenameService(options);
+            renameGroupService.RenameGroup(groupNewName, selectedGroup);
 
             var expectedGroupValue = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
 
@@ -64,7 +64,7 @@ public class ClassGroupRenameServiceUnitTests
     public void Test_RenameGroup_NameTakenCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb14HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb13HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -93,8 +93,8 @@ public class ClassGroupRenameServiceUnitTests
             {
                 var groupNewName = "TestGrp-01";
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-                var renameGroupService = new GroupRenameService(groupNewName, selectedGroup, options);
-                renameGroupService.RenameGroup();
+                var renameGroupService = new GroupRenameService(options);
+                renameGroupService.RenameGroup(groupNewName, selectedGroup);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -109,7 +109,7 @@ public class ClassGroupRenameServiceUnitTests
     public void Test_RenameGroup_GroupNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb15HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb14HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -138,8 +138,8 @@ public class ClassGroupRenameServiceUnitTests
             {
                 var groupNewName = "TestGrp-07";
                 var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-                var renameGroupService = new GroupRenameService(groupNewName, selectedGroup, options);
-                renameGroupService.RenameGroup();
+                var renameGroupService = new GroupRenameService(options);
+                renameGroupService.RenameGroup(groupNewName, selectedGroup);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }

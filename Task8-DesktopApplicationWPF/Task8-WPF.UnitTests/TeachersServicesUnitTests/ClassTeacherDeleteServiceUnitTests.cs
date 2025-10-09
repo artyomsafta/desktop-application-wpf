@@ -13,7 +13,7 @@ public class ClassTeacherDeleteServiceUnitTests
     public void Test_DeleteTeacher_PositiveCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb23HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb27HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -35,8 +35,8 @@ public class ClassTeacherDeleteServiceUnitTests
             context.SaveChanges();
 
             var selectedTeacher = new TeacherDto { Name = "Third", Surname = "Teacher" };
-            var deleteTeacherService = new TeacherDeleteService(selectedTeacher, options);
-            deleteTeacherService.DeleteTeacher();
+            var deleteTeacherService = new TeacherDeleteService(options);
+            deleteTeacherService.DeleteTeacher(selectedTeacher);
 
             Assert.AreEqual(2, context.Teachers.Count());
         }
@@ -46,7 +46,7 @@ public class ClassTeacherDeleteServiceUnitTests
     public void Test_DeleteTeacher_TeacherNotFoundCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb24HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb28HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -71,8 +71,8 @@ public class ClassTeacherDeleteServiceUnitTests
             try
             {
                 var selectedTeacher = new TeacherDto { Name = "Third", Surname = "Teacher" };
-                var deleteTeacherService = new TeacherDeleteService(selectedTeacher, options);
-                deleteTeacherService.DeleteTeacher();
+                var deleteTeacherService = new TeacherDeleteService(options);
+                deleteTeacherService.DeleteTeacher(selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
@@ -87,7 +87,7 @@ public class ClassTeacherDeleteServiceUnitTests
     public void Test_DeleteTeacher_TeacherHasGroupsCase()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb25HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb29HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -114,8 +114,8 @@ public class ClassTeacherDeleteServiceUnitTests
             try
             {
                 var selectedTeacher = new TeacherDto { Name = "Third", Surname = "Teacher" };
-                var deleteTeacherService = new TeacherDeleteService(selectedTeacher, options);
-                deleteTeacherService.DeleteTeacher();
+                var deleteTeacherService = new TeacherDeleteService(options);
+                deleteTeacherService.DeleteTeacher(selectedTeacher);
 
                 Assert.Fail("Expected Exception was not thrown.");
             }
