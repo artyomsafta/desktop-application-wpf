@@ -1,25 +1,25 @@
 ﻿using System.Collections.ObjectModel;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
+using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 public class CoursesListViewModel : BaseViewModel
 {
-    private CoursesListService _coursesService;
+    private DtoListsService _dtoListsService;
 
     public ObservableCollection<CourseDto> Courses { get; } = new();
 
     public CoursesListViewModel()
     {
-        _coursesService = new CoursesListService();
+        _dtoListsService = new DtoListsService();
         LoadList();
     }
 
     private void LoadList()
     {
         Courses.Clear();
-        var coursesDtos = _coursesService.GetCoursesList();
+        var coursesDtos = _dtoListsService.GetCoursesList();
         var sortedCoursesDtos = coursesDtos
             .OrderBy(dto => dto.CourseName)
             .ToList();

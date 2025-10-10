@@ -2,7 +2,6 @@
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
 
 namespace Task8_WPF.BAL.Services.FileServices;
 
@@ -16,7 +15,7 @@ public class CreatePdfFileService : IDocument
     {
         _selectedGroupName = selectedGroup.GroupName;
         _fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroup.GroupName}.pdf");
-        _studentsList = new StudentsListService().GetStudentsList(_selectedGroupName);
+        _studentsList = new DtoListsService().GetStudentsList(_selectedGroupName);
     }
 
     public void ExportStudentsToPdf()

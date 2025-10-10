@@ -1,24 +1,24 @@
 ﻿using System.Collections.ObjectModel;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
+using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 public class GroupsListViewModel : BaseViewModel
 {
-    private GroupsListService _groupsService;
+    private DtoListsService _dtoListsService;
     public ObservableCollection<GroupDto> Groups { get; } = new();
 
     public GroupsListViewModel()
     {
-        _groupsService = new GroupsListService();
+        _dtoListsService = new DtoListsService();
         LoadList();
     }
 
     private void LoadList()
     {
         Groups.Clear();
-        var groupsDtos = _groupsService.GetGroupsList();
+        var groupsDtos = _dtoListsService.GetGroupsList();
         var sortedGroupsDtos = groupsDtos
             .OrderBy(dto => dto.GroupName)
             .ToList();

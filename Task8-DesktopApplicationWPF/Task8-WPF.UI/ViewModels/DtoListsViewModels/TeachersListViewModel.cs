@@ -1,24 +1,24 @@
 ﻿using System.Collections.ObjectModel;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
+using Task8_WPF.BAL.Services;
 
 namespace Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 public class TeachersListViewModel : BaseViewModel
 {
-    private TeachersListService _teachersService;
+    private DtoListsService _dtoListsService;
     public ObservableCollection<TeacherDto> Teachers { get; } = new();
 
     public TeachersListViewModel()
     {
-        _teachersService = new TeachersListService();
+        _dtoListsService = new DtoListsService();
         LoadList();
     }
 
     private void LoadList()
     {
         Teachers.Clear();
-        var teachersDtos = _teachersService.GetTeachersList();        
+        var teachersDtos = _dtoListsService.GetTeachersList();        
         var sortedTeachersDtos = teachersDtos
             .OrderBy(dto => dto.Name)
             .ToList();

@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
 
 namespace Task8_WPF.BAL.Services.FileServices;
 
@@ -8,7 +7,7 @@ public class ExportFileService
 {
     public void ExportStudents(GroupDto selectedGroup, string path)
     {
-        var studentsList = new StudentsListService().GetStudentsList(selectedGroup.GroupName);
+        var studentsList = new DtoListsService().GetStudentsList(selectedGroup.GroupName);
 
         if (studentsList is null || studentsList.Count is 0)
         {

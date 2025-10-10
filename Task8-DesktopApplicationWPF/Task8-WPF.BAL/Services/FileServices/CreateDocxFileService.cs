@@ -2,7 +2,6 @@
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.DtoListsServices;
 
 namespace Task8_WPF.BAL.Services.FileServices;
 
@@ -12,7 +11,7 @@ public class CreateDocxFileService
     {
         var selectedGroupName = selectedGroup.GroupName;
         var fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroupName}.docx");
-        var studentsList = new StudentsListService().GetStudentsList(selectedGroupName);
+        var studentsList = new DtoListsService().GetStudentsList(selectedGroupName);
 
         if (studentsList is null || studentsList.Count is 0)
         {
