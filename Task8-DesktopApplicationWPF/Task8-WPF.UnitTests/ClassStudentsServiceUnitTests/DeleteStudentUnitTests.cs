@@ -1,17 +1,15 @@
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.UnitTests.ClassGroupsServiceUnitTests;
+namespace Task8_WPF.UnitTests.ClassStudentsServiceUnitTests;
 
 [TestClass]
-public class UpdateTeacherUnitTests
+public class DeleteStudentUnitTests
 {
     private DbContextOptions<WpfAppDbContext> _options;
-    private GroupsService _groupsService;
+    private StudentsService _studentsService;
 
     [TestInitialize]
     public void Setup()
@@ -20,7 +18,7 @@ public class UpdateTeacherUnitTests
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
         this.SeedMockDb();
-        _groupsService = new GroupsService(_options);
+        _studentsService = new StudentsService(_options);
     }
 
     private void SeedMockDb()
@@ -36,51 +34,56 @@ public class UpdateTeacherUnitTests
             var testGroup4 = new Group { Name = "TestGrp-04", Course = testCourse1, Teacher = testTeacher2 };
             var testGroup5 = new Group { Name = "TestGrp-05", Course = testCourse1, Teacher = testTeacher2 };
 
+            var testStudents = new List<Student>
+            {
+                new Student { Name = "Lybov", Surname = "Pavlova", Group = testGroup1 },
+                new Student { Name = "Talia", Surname = "Grimsley", Group = testGroup1 },
+                new Student { Name = "Artem", Surname = "Timchenko", Group = testGroup2 },
+                new Student { Name = "Jaxon", Surname = "Moorland", Group = testGroup2 },
+                new Student { Name = "Tessa", Surname = "Winsley", Group = testGroup2 },
+                new Student { Name = "Elara", Surname = "Mendez", Group = testGroup3 },
+                new Student { Name = "Kian", Surname = "Halbrook", Group = testGroup3 },
+                new Student { Name = "Caleb", Surname = "Raycroft", Group = testGroup3 },
+                new Student { Name = "Milo", Surname = "Penrose", Group = testGroup3 }
+            };
+
             context.Courses.AddRange(testCourse1);
             context.Teachers.AddRange(testTeacher1, testTeacher2);
             context.Groups.AddRange(testGroup1, testGroup2, testGroup3, testGroup4, testGroup5);
+            context.Students.AddRange(testStudents);
 
             context.SaveChanges();
         }
     }
 
     [TestMethod]
-    public void Test_UpdateTeacher_PositiveCase()
+    public void Test_DeleteStudent_PositiveCase()
     {
         using (var context = new WpfAppDbContext(_options))
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-03", TeacherFullName = "Second Teacher" };
-            var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-            _groupsService.UpdateTeacher(selectedGroup, selectedTeacher);
+            var selectedGroupName = "TestGrp-02";
+            var selectedStudentFullName = "Artem Timchenko";
 
-            var expectedGroupValue = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-03", TeacherFullName = "First Teacher" };
+            _studentsService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
-            var actualGroup = context.Groups
-                .Include(c => c.Course)
-                .Include(t => t.Teacher)
-                .FirstOrDefault(g => g.Name == selectedGroup.GroupName);
-
-            var actualGroupValue = new GroupDto
-            {
-                CourseName = actualGroup.Course.Name,
-                GroupName = actualGroup.Name,
-                TeacherFullName = actualGroup.Teacher.Name + " " + actualGroup.Teacher.Surname
-            };
-
-            actualGroupValue.Should().BeEquivalentTo(expectedGroupValue);
+            Assert.AreEqual(2, context.Students
+                                .Include(g => g.Group)
+                                .Where(g => g.Group.Name == selectedGroupName)
+                                .Count()
+            );
         }
     }
 
     [TestMethod]
-    public void Test_UpdateTeacher_GroupNotFoundCase()
+    public void Test_DeleteStudent_GroupNotFoundCase()
     {
         var expectedErrorMessage = "Group 'TestGrp-06' not found!";
-
+     
         try
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-            var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-            _groupsService.UpdateTeacher(selectedGroup, selectedTeacher);
+            var selectedGroupName = "TestGrp-06";
+            var selectedStudentFullName = "Test Student";
+            _studentsService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }
@@ -91,15 +94,16 @@ public class UpdateTeacherUnitTests
     }
 
     [TestMethod]
-    public void Test_UpdateTeacher_TeacherNotFoundCase()
+    public void Test_DeleteStudent_StudentNotFoundCase()
     {
-        var expectedErrorMessage = "Teacher 'WRONG Teacher' not found!";
+        var expectedErrorMessage = "Student 'WRONG Student' not found!";
 
         try
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-            var selectedTeacher = new TeacherDto { Name = "WRONG", Surname = "Teacher" };
-            _groupsService.UpdateTeacher(selectedGroup, selectedTeacher);
+            var selectedGroupName = "TestGrp-01";
+            var selectedStudentFullName = "WRONG Student";
+
+            _studentsService.DeleteStudent(selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }

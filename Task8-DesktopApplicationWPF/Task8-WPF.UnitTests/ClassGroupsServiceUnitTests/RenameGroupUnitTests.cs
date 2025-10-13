@@ -78,14 +78,11 @@ public class RenameGroupUnitTests
 
         try
         {
-            using (var context = new WpfAppDbContext(_options))
-            {
-                var groupNewName = "TestGrp-01";
-                var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-                _groupsService.RenameGroup(groupNewName, selectedGroup);
+            var groupNewName = "TestGrp-01";
+            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
+            _groupsService.RenameGroup(groupNewName, selectedGroup);
 
-                Assert.Fail("Expected Exception was not thrown.");
-            }
+            Assert.Fail("Expected Exception was not thrown.");
         }
         catch (Exception actualError)
         {
@@ -100,14 +97,11 @@ public class RenameGroupUnitTests
 
         try
         {
-            using (var context = new WpfAppDbContext(_options))
-            {
-                var groupNewName = "TestGrp-07";
-                var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-                _groupsService.RenameGroup(groupNewName, selectedGroup);
+            var groupNewName = "TestGrp-07";
+            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
+            _groupsService.RenameGroup(groupNewName, selectedGroup);
 
-                Assert.Fail("Expected Exception was not thrown.");
-            }
+            Assert.Fail("Expected Exception was not thrown.");
         }
         catch (Exception actualError)
         {

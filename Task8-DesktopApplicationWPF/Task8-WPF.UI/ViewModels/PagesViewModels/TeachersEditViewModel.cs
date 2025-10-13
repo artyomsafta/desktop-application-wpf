@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.TeachersServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 namespace Task8_WPF.UI.ViewModels;
 
 public class TeachersEditViewModel : BaseViewModel
 {
+    private TeachersService _teachersService;
+
     private TeacherDto _selectedTeacher;
     public TeacherDto SelectedTeacher
     {
@@ -75,11 +77,12 @@ public class TeachersEditViewModel : BaseViewModel
 
     public TeachersEditViewModel()
     {
+        _teachersService = new TeachersService();
         TeachersListViewModel = new TeachersListViewModel();
 
         AddNewTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherAddEntryService(),
+                () => _teachersService,
                 t => t.AddTeacherEntry(_newTeacherName, _newTeacherSurname),
                 $"teacher has been added."
             ),
@@ -88,7 +91,7 @@ public class TeachersEditViewModel : BaseViewModel
 
         UpdateTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherUpdateService(),
+                () => _teachersService,
                 t => t.UpdateTeacher(_teacherNameToUpdate, _teacherSurnameToUpdate, _selectedTeacher),
                 $"teacher's data has been updated."
             ),
@@ -97,7 +100,7 @@ public class TeachersEditViewModel : BaseViewModel
 
         DeleteTeacherCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new TeacherDeleteService(),
+                () => _teachersService,
                 t => t.DeleteTeacher(_selectedTeacher),
                 $"teacher has been deleted."
             ),

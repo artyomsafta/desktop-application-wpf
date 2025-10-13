@@ -1,16 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.UnitTests.ClassGroupsServiceUnitTests;
+namespace Task8_WPF.UnitTests.ClassStudentsServiceUnitTests;
 
 [TestClass]
-public class DeleteGroupUnitTests
+public class AddStudentEntryUnitTests
 {
     private DbContextOptions<WpfAppDbContext> _options;
-    private GroupsService _groupsService;
+    private StudentsService _studentsService;
 
     [TestInitialize]
     public void Setup()
@@ -19,7 +18,7 @@ public class DeleteGroupUnitTests
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
         this.SeedMockDb();
-        _groupsService = new GroupsService(_options);
+        _studentsService = new StudentsService(_options);
     }
 
     private void SeedMockDb()
@@ -58,50 +57,41 @@ public class DeleteGroupUnitTests
     }
 
     [TestMethod]
-    public void Test_DeleteGroup_PositiveCase()
+    public void Test_AddStudentEntry_PositiveCase()
     {
         using (var context = new WpfAppDbContext(_options))
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
+            var newStudentName = "Test";
+            var newStudentSurname = "Student";
+            var selectedGroupName = "TestGrp-01";
 
-            Assert.AreEqual(4, context.Groups.Count());
+            _studentsService.AddStudentEntry(newStudentName, newStudentSurname, selectedGroupName);
+
+            Assert.AreEqual(3, context.Students
+                                .Include(g => g.Group)
+                                .Where(g => g.Group.Name == selectedGroupName)
+                                .Count()
+            );
         }
     }
 
     [TestMethod]
-    public void Test_DeleteGroup_GroupNotFoundCase()
+    public void Test_AddStudentEntry_GroupNotFoundCase()
     {
-        var expectedErrorMessage = "Group TestGrp-06 not found!";
+        var newStudentName = "Test";
+        var newStudentSurname = "Student";
+        var selectedGroupName = "TestGrp-06";
+
+        var expectedErrorMessage = "Group 'TestGrp-06' not found!";
 
         try
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
-
+            _studentsService.AddStudentEntry(newStudentName, newStudentSurname, selectedGroupName);
             Assert.Fail("Expected Exception was not thrown.");
         }
         catch (Exception actualError)
         {
             Assert.AreEqual(expectedErrorMessage, actualError.Message);
-        }        
-    }
-
-    [TestMethod]
-    public void Test_DeleteGroup_GroupNotEmptyCase()
-    {
-        var expectedErrorMessage = "Group TestGrp-01 cannot be deleted because it has students in it!";
-
-        try
-        {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-01", TeacherFullName = "First Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
-
-            Assert.Fail("Expected Exception was not thrown.");
         }
-        catch (Exception actualError)
-        {
-            Assert.AreEqual(expectedErrorMessage, actualError.Message);
-        }        
     }
 }

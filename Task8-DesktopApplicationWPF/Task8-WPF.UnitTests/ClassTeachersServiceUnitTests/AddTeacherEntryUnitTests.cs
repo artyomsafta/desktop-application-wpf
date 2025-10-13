@@ -1,21 +1,29 @@
 using Microsoft.EntityFrameworkCore;
-using Task8_WPF.BAL.Services.TeachersServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.UnitTests.TeachersServicesUnitTests;
+namespace Task8_WPF.UnitTests.ClassTeachersServiceUnitTests;
 
 [TestClass]
-public class ClassTeacherAddEntryServiceUnitTests
+public class AddTeacherEntryUnitTests
 {
-    [TestMethod]
-    public void Test_AddTeacherEntry_PositiveCase()
-    {
-        var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb26HasData")
-            .Options;
+    private DbContextOptions<WpfAppDbContext> _options;
+    private TeachersService _teachersService;
 
-        using (var context = new WpfAppDbContext(options))
+    [TestInitialize]
+    public void Setup()
+    {
+        _options = new DbContextOptionsBuilder<WpfAppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+        this.SeedMockDb();
+        _teachersService = new TeachersService(_options);
+    }
+
+    private void SeedMockDb()
+    {
+        using (var context = new WpfAppDbContext(_options))
         {
             var testCourse1 = new Course { Name = "Test course", Description = "This is test course" };
             var testTeacher1 = new Teacher { Name = "First", Surname = "Teacher" };
@@ -31,12 +39,17 @@ public class ClassTeacherAddEntryServiceUnitTests
             context.Groups.AddRange(testGroup1, testGroup2, testGroup3, testGroup4, testGroup5);
 
             context.SaveChanges();
+        }
+    }
 
+    [TestMethod]
+    public void Test_AddTeacherEntry_PositiveCase()
+    {
+        using (var context = new WpfAppDbContext(_options))
+        {
             var newTeacherName = "Third";
             var newTeacherSurname = "Teacher";
-
-            var addTeacherService = new TeacherAddEntryService(options);
-            addTeacherService.AddTeacherEntry(newTeacherName, newTeacherSurname);
+            _teachersService.AddTeacherEntry(newTeacherName, newTeacherSurname);
 
             Assert.AreEqual(3, context.Teachers.Count());
         }

@@ -1,16 +1,17 @@
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Task8_WPF.BAL.Dto.EntityDtos;
 using Task8_WPF.BAL.Services;
 using Task8_WPF.DAL;
 using Task8_WPF.DAL.Entities;
 
-namespace Task8_WPF.UnitTests.ClassGroupsServiceUnitTests;
+namespace Task8_WPF.UnitTests.ClassStudentsServiceUnitTests;
 
 [TestClass]
-public class DeleteGroupUnitTests
+public class UpdateStudenUnitTests
 {
     private DbContextOptions<WpfAppDbContext> _options;
-    private GroupsService _groupsService;
+    private StudentsService _studentsService;
 
     [TestInitialize]
     public void Setup()
@@ -19,7 +20,7 @@ public class DeleteGroupUnitTests
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
         this.SeedMockDb();
-        _groupsService = new GroupsService(_options);
+        _studentsService = new StudentsService(_options);
     }
 
     private void SeedMockDb()
@@ -58,50 +59,72 @@ public class DeleteGroupUnitTests
     }
 
     [TestMethod]
-    public void Test_DeleteGroup_PositiveCase()
+    public void Test_UpdateStudent_PositiveCase()
     {
         using (var context = new WpfAppDbContext(_options))
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-05", TeacherFullName = "Second Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
+            var studentNewName = "Bill";
+            var studentNewSurname = "Gates";
+            var selectedGroupName = "TestGrp-01";
+            var selectedStudentFullName = "Talia Grimsley";
+            _studentsService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
-            Assert.AreEqual(4, context.Groups.Count());
+            var expectedStudentValue = new StudentDto { Name = "Bill", Surname = "Gates", GroupName = "TestGrp-01" };
+
+            var actualStudent = context.Students
+                .Include(g => g.Group)
+                .FirstOrDefault(s => s.Name + " " + s.Surname == studentNewName + " " + studentNewSurname);
+
+            var actualStudentValue = new StudentDto
+            {
+                Name = actualStudent.Name,
+                Surname = actualStudent.Surname,
+                GroupName = actualStudent.Group.Name
+            };
+
+            actualStudentValue.Should().BeEquivalentTo(expectedStudentValue);
         }
     }
 
     [TestMethod]
-    public void Test_DeleteGroup_GroupNotFoundCase()
+    public void Test_UpdateStudent_GroupNotFoundCase()
     {
-        var expectedErrorMessage = "Group TestGrp-06 not found!";
+        var expectedErrorMessage = "Group 'TestGrp-06' not found!";
 
         try
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-06", TeacherFullName = "Second Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
+            var studentNewName = "Bill";
+            var studentNewSurname = "Gates";
+            var selectedGroupName = "TestGrp-06";
+            var selectedStudentFullName = "Test Student";
+            _studentsService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }
         catch (Exception actualError)
         {
             Assert.AreEqual(expectedErrorMessage, actualError.Message);
-        }        
+        }
     }
 
     [TestMethod]
-    public void Test_DeleteGroup_GroupNotEmptyCase()
+    public void Test_UpdateStudent_StudentNotFoundCase()
     {
-        var expectedErrorMessage = "Group TestGrp-01 cannot be deleted because it has students in it!";
+        var expectedErrorMessage = "Student 'WRONG Student' not found!";
 
         try
         {
-            var selectedGroup = new GroupDto { CourseName = "Test course", GroupName = "TestGrp-01", TeacherFullName = "First Teacher" };
-            _groupsService.DeleteGroup(selectedGroup);
+            var studentNewName = "Bill";
+            var studentNewSurname = "Gates";
+            var selectedGroupName = "TestGrp-01";
+            var selectedStudentFullName = "WRONG Student";
+            _studentsService.UpdateStudent(studentNewName, studentNewSurname, selectedGroupName, selectedStudentFullName);
 
             Assert.Fail("Expected Exception was not thrown.");
         }
         catch (Exception actualError)
         {
             Assert.AreEqual(expectedErrorMessage, actualError.Message);
-        }        
+        }
     }
 }

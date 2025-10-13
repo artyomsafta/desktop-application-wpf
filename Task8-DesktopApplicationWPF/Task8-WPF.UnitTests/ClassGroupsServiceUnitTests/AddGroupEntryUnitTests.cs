@@ -62,21 +62,18 @@ public class AddGroupEntryUnitTests
     {
         var expectedErrorMessage = "This group already exists! Try another name";
 
-        using (var context = new WpfAppDbContext(_options))
+        try
         {
-            try
-            {
-                var newGroupName = "TestGrp-05";
-                var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
-                var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-                _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
+            var newGroupName = "TestGrp-05";
+            var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
+            var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
+            _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
-                Assert.Fail("Expected Exception was not thrown.");
-            }
-            catch (Exception actualError)
-            {
-                Assert.AreEqual(expectedErrorMessage, actualError.Message);
-            }
+            Assert.Fail("Expected Exception was not thrown.");
+        }
+        catch (Exception actualError)
+        {
+            Assert.AreEqual(expectedErrorMessage, actualError.Message);
         }
     }
 
@@ -85,21 +82,18 @@ public class AddGroupEntryUnitTests
     {
         var expectedErrorMessage = "Course 'WRONG course' not found!";
 
-        using (var context = new WpfAppDbContext(_options))
+        try
         {
-            try
-            {
-                var newGroupName = "TestGrp-06";
-                var selectedCourse = new CourseDto { CourseName = "WRONG course", Description = "This is WRONG course" };
-                var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
-                _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
+            var newGroupName = "TestGrp-06";
+            var selectedCourse = new CourseDto { CourseName = "WRONG course", Description = "This is WRONG course" };
+            var selectedTeacher = new TeacherDto { Name = "First", Surname = "Teacher" };
+            _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
-                Assert.Fail("Expected Exception was not thrown.");
-            }
-            catch (Exception actualError)
-            {
-                Assert.AreEqual(expectedErrorMessage, actualError.Message);
-            }
+            Assert.Fail("Expected Exception was not thrown.");
+        }
+        catch (Exception actualError)
+        {
+            Assert.AreEqual(expectedErrorMessage, actualError.Message);
         }
     }
 
@@ -108,21 +102,18 @@ public class AddGroupEntryUnitTests
     {
         var expectedErrorMessage = "Teacher 'WRONG Teacher' not found!";
 
-        using (var context = new WpfAppDbContext(_options))
+        try
         {
-            try
-            {
-                var newGroupName = "TestGrp-06";
-                var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
-                var selectedTeacher = new TeacherDto { Name = "WRONG", Surname = "Teacher" };
-                _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
+            var newGroupName = "TestGrp-06";
+            var selectedCourse = new CourseDto { CourseName = "Test course", Description = "This is test course" };
+            var selectedTeacher = new TeacherDto { Name = "WRONG", Surname = "Teacher" };
+            _groupsService.AddGroupEntry(newGroupName, selectedCourse, selectedTeacher);
 
-                Assert.Fail("Expected Exception was not thrown.");
-            }
-            catch (Exception actualError)
-            {
-                Assert.AreEqual(expectedErrorMessage, actualError.Message);
-            }
+            Assert.Fail("Expected Exception was not thrown.");
+        }
+        catch (Exception actualError)
+        {
+            Assert.AreEqual(expectedErrorMessage, actualError.Message);
         }
     }
 }

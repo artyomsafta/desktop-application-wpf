@@ -14,7 +14,7 @@ public sealed class ClassTreeViewServiceUnitTests
     public void Test_GetHierarchyForTreeView()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb33HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb02HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))

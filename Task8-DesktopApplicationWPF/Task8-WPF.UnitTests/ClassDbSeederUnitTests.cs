@@ -11,7 +11,7 @@ public sealed class ClassDbSeederUnitTests
     public void Test_Seed_EmptyDb()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb1Empty")
+            .UseInMemoryDatabase(databaseName: "MockDb01Empty")
             .Options;
 
         using (var context = new WpfAppDbContext(options))
@@ -30,7 +30,7 @@ public sealed class ClassDbSeederUnitTests
     public void Test_Seed_DbWithData()
     {
         var options = new DbContextOptionsBuilder<WpfAppDbContext>()
-            .UseInMemoryDatabase(databaseName: "MockDb32HasData")
+            .UseInMemoryDatabase(databaseName: "MockDb01HasData")
             .Options;
 
         using (var context = new WpfAppDbContext(options))

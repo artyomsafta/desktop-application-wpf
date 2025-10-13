@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Task8_WPF.BAL.Dto.TreeDtos;
-using Task8_WPF.BAL.Services.StudentsServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.UI.ViewModels.PagesViewModels.StudentsEditPageVMs;
 
 namespace Task8_WPF.UI.ViewModels;
 
 public class StudentsEditViewModel : BaseViewModel
 {
+    private StudentsService _studentsService;
+
     private StudentsTreeDto _selectedStudent;
     public StudentsTreeDto SelectedStudent
     {
@@ -75,11 +77,12 @@ public class StudentsEditViewModel : BaseViewModel
 
     public StudentsEditViewModel()
     {
+        _studentsService = new StudentsService();
         CascadeComboboxViewModel = new CascadeComboboxViewModel();
 
         AddNewStudentCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new StudentAddEntryService(),
+                () => _studentsService,
                 s => s.AddStudentEntry(_newStudentName, _newStudentSurname, CascadeComboboxViewModel.SelectedGroup.GroupName),
                 $"student has been added."
             ),
@@ -88,7 +91,7 @@ public class StudentsEditViewModel : BaseViewModel
 
         UpdateStudentCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new StudentUpdateService(),
+                () => _studentsService,
                 s => s.UpdateStudent(
                     _studentNameToUpdate,
                     _studentSurnameToUpdate,
@@ -102,7 +105,7 @@ public class StudentsEditViewModel : BaseViewModel
 
         DeleteStudentCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new StudentDeleteService(),
+                () => _studentsService,
                 s => s.DeleteStudent(
                     CascadeComboboxViewModel.SelectedGroup.GroupName,
                     _selectedStudent.FullName
