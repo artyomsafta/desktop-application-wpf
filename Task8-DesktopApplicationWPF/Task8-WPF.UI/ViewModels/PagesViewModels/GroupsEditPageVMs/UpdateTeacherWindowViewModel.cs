@@ -2,14 +2,14 @@
 using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.GroupsServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
 public class UpdateTeacherWindowViewModel : BaseViewModel
 {
-    private GroupUpdateTeacherService _groupUpdateTeacherService;
+    private GroupsService _groupsService;
 
     private GroupDto _selectedGroup;
     public GroupDto SelectedGroup
@@ -58,8 +58,8 @@ public class UpdateTeacherWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupUpdateTeacherService = new GroupUpdateTeacherService();
-            _groupUpdateTeacherService.UpdateTeacher(_selectedGroup, SelectedTeacher);
+            _groupsService = new GroupsService();
+            _groupsService.UpdateTeacher(_selectedGroup, SelectedTeacher);
             MessageBox.Show($"Operation successful!\nTeacher has been updated.\nNew teacher's name: {SelectedTeacher.Name} {SelectedTeacher.Surname}.");
         }
         catch (Exception ex)

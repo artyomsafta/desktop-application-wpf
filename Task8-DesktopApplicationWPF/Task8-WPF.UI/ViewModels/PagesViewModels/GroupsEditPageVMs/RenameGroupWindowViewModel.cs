@@ -2,14 +2,14 @@
 using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.GroupsServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
 public class RenameGroupWindowViewModel : BaseViewModel
 {
-    private GroupRenameService _groupRenameService;
+    private GroupsService _groupsService;
 
     private string _groupNewName;
     public string GroupNewName 
@@ -56,8 +56,8 @@ public class RenameGroupWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupRenameService = new GroupRenameService();
-            _groupRenameService.RenameGroup(_groupNewName, SelectedGroup);
+            _groupsService = new GroupsService();
+            _groupsService.RenameGroup(_groupNewName, SelectedGroup);
             MessageBox.Show($"Operation successful!\nGroup has been renamed.\nGroup new name: {GroupNewName}.");
         }
         catch (Exception ex)

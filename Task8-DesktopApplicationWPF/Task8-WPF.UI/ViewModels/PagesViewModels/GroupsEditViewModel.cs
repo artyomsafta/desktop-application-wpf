@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.BAL.Services.FileServices;
 using Task8_WPF.BAL.Services.GroupsServices;
 using Task8_WPF.UI.ViewModels.DtoListsViewModels;
@@ -83,7 +84,7 @@ public class GroupsEditViewModel : BaseViewModel
 
         DeleteGroupCommand = new RelayCommand(
             () => ExecuteOperation(
-                () => new GroupDeleteService(),
+                () => new GroupsService(),
                 s => s.DeleteGroup(_selectedGroup),
                 $"Group: {SelectedGroup.GroupName} has been deleted."
             ),

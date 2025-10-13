@@ -8,7 +8,7 @@ using Task8_WPF.DAL.Entities;
 namespace Task8_WPF.UnitTests;
 
 [TestClass]
-public class DtoListsServiceUnitTests
+public class ClassDtoListsServiceUnitTests
 {
     private DbContextOptions<WpfAppDbContext> _options;
     private DtoListsService _dtoListsService;

@@ -2,14 +2,14 @@
 using System.Windows;
 using System.Windows.Input;
 using Task8_WPF.BAL.Dto.EntityDtos;
-using Task8_WPF.BAL.Services.GroupsServices;
+using Task8_WPF.BAL.Services;
 using Task8_WPF.UI.ViewModels.DtoListsViewModels;
 
 namespace Task8_WPF.UI.ViewModels.PagesViewModels.GroupsEditPageVMs;
 
 public class CreateGroupWindowViewModel : BaseViewModel
 {
-    private GroupAddEntryService _groupAddEntryService;
+    private GroupsService _groupsService;
 
     private string _groupName;
     public string GroupName
@@ -71,8 +71,8 @@ public class CreateGroupWindowViewModel : BaseViewModel
     {
         try
         {
-            _groupAddEntryService = new GroupAddEntryService();
-            _groupAddEntryService.AddGroupEntry(_groupName, SelectedCourse, SelectedTeacher);
+            _groupsService = new GroupsService();
+            _groupsService.AddGroupEntry(_groupName, SelectedCourse, SelectedTeacher);
             MessageBox.Show($"Operation successful!\nNew group name: {GroupName},\n" +
                             $"course: {SelectedCourse.CourseName},\n" +
                             $"teacher:{SelectedTeacher.Name} {SelectedTeacher.Surname}.");
