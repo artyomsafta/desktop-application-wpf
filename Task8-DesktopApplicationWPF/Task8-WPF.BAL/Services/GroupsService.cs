@@ -21,10 +21,11 @@ public class GroupsService
 
     public void AddGroupEntry(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher)
     {
+        var newGroupName = groupName.Trim();
         var courseName = selectedCourse.CourseName;
         var teacherFullName = $"{selectedTeacher.Name} {selectedTeacher.Surname}";
 
-        if (_context.Groups.Any(g => g.Name == groupName))
+        if (_context.Groups.Any(g => g.Name.ToLower() == newGroupName.ToLower()))
         {
             throw new Exception("This group already exists! Try another name");
         }
@@ -46,7 +47,7 @@ public class GroupsService
         _context.Groups.Add(new Group
         {
             Id = Guid.NewGuid(),
-            Name = groupName,
+            Name = newGroupName,
             CourseId = course.Id,
             TeacherId = teacher.Id
         });
@@ -74,9 +75,11 @@ public class GroupsService
         _context.SaveChanges();
     }
 
-    public void RenameGroup(string groupNewName, GroupDto selectedGroup)
+    public void RenameGroup(string groupName, GroupDto selectedGroup)
     {
-        if (_context.Groups.Any(g => g.Name == groupNewName))
+        var groupNewName = groupName.Trim();
+
+        if (_context.Groups.Any(g => g.Name.ToLower() == groupNewName.ToLower()))
         {
             throw new Exception("This group already exists! Try another name");
         }

@@ -30,8 +30,8 @@ public class StudentsService
         _context.Students.Add(new Student
         {
             Id = Guid.NewGuid(),
-            Name = name,
-            Surname = surname,
+            Name = name.Trim(),
+            Surname = surname.Trim(),
             GroupId = group.Id
         });
 
@@ -78,8 +78,8 @@ public class StudentsService
             throw new Exception($"Student '{selectedStudentFullName}' not found!");
         }
 
-        student.Name = name;
-        student.Surname = surname;
+        student.Name = name.Trim();
+        student.Surname = surname.Trim();
 
         _context.SaveChanges();
     }

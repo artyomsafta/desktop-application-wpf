@@ -24,8 +24,8 @@ public class TeachersService
         _context.Teachers.Add(new Teacher
         {
             Id = Guid.NewGuid(),
-            Name = name,
-            Surname = surname
+            Name = name.Trim(),
+            Surname = surname.Trim()
         });
 
         _context.SaveChanges();
@@ -63,8 +63,8 @@ public class TeachersService
             throw new Exception($"Teacher '{teacherFullName}' not found!");
         }
 
-        teacher.Name = name;
-        teacher.Surname = surname;
+        teacher.Name = name.Trim();
+        teacher.Surname = surname.Trim();
 
         _context.SaveChanges();
     }
