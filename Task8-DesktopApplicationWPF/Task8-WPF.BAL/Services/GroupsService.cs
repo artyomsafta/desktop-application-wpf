@@ -22,7 +22,6 @@ public class GroupsService
     public void AddGroupEntry(string groupName, CourseDto selectedCourse, TeacherDto selectedTeacher)
     {
         var newGroupName = groupName.Trim();
-        var courseName = selectedCourse.CourseName;
         var teacherFullName = $"{selectedTeacher.Name} {selectedTeacher.Surname}";
 
         if (_context.Groups.Any(g => g.Name.ToLower() == newGroupName.ToLower()))
@@ -30,14 +29,14 @@ public class GroupsService
             throw new Exception("This group already exists! Try another name");
         }
 
-        var course = _context.Courses.FirstOrDefault(c => c.Name == courseName);
+        var course = _context.Courses.FirstOrDefault(c => c.Id == selectedCourse.CourseId);
 
         if (course is null)
         {
-            throw new Exception($"Course '{courseName}' not found!");
+            throw new Exception($"Course '{selectedCourse.CourseName}' not found!");
         }
 
-        var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
+        var teacher = _context.Teachers.FirstOrDefault(t => t.Id == selectedTeacher.TeacherId);
 
         if (teacher is null)
         {
@@ -59,7 +58,7 @@ public class GroupsService
     {
         var group = _context.Groups
             .Include(s => s.Students)
-            .FirstOrDefault(g => g.Name == selectedGroup.GroupName);
+            .FirstOrDefault(g => g.Id == selectedGroup.GroupId);
 
         if (group is null)
         {
@@ -84,7 +83,7 @@ public class GroupsService
             throw new Exception("This group already exists! Try another name");
         }
 
-        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroup.GroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Id == selectedGroup.GroupId);
 
         if (group is null)
         {
@@ -97,7 +96,7 @@ public class GroupsService
 
     public void UpdateTeacher(GroupDto selectedGroup, TeacherDto selectedTeacher)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroup.GroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Id == selectedGroup.GroupId);
 
         if (group is null)
         {
@@ -105,7 +104,7 @@ public class GroupsService
         }
 
         var teacherFullName = $"{selectedTeacher.Name} {selectedTeacher.Surname}";
-        var teacher = _context.Teachers.FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
+        var teacher = _context.Teachers.FirstOrDefault(t => t.Id == selectedTeacher.TeacherId);
 
         if (teacher is null)
         {

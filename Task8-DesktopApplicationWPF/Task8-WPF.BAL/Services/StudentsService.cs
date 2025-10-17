@@ -18,13 +18,13 @@ public class StudentsService
         _context = new WpfAppDbContext();
     }
 
-    public void AddStudentEntry(string name, string surname, string selectedGroupName)
+    public void AddStudentEntry(string name, string surname, Guid selectedGroupId)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroupName);
+        var group = _context.Groups.FirstOrDefault(g => g.Id == selectedGroupId);
 
         if (group is null)
         {
-            throw new Exception($"Group '{selectedGroupName}' not found!");
+            throw new Exception($"Group not found!");
         }
 
         _context.Students.Add(new Student
@@ -38,44 +38,26 @@ public class StudentsService
         _context.SaveChanges();
     }
 
-    public void DeleteStudent(string selectedGroupName, string selectedStudentFullName)
+    public void DeleteStudent(Guid selectedStudentId)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroupName);
-
-        if (group is null)
-        {
-            throw new Exception($"Group '{selectedGroupName}' not found!");
-        }
-
-        var student = _context.Students
-            .Where(g => g.GroupId == group.Id)
-            .FirstOrDefault(s => s.Name + " " + s.Surname == selectedStudentFullName);
+        var student = _context.Students.FirstOrDefault(s => s.Id == selectedStudentId);
 
         if (student is null)
         {
-            throw new Exception($"Student '{selectedStudentFullName}' not found!");
+            throw new Exception($"Student not found!");
         }
 
         _context.Students.Remove(student);
         _context.SaveChanges();
     }
 
-    public void UpdateStudent(string name, string surname, string selectedGroupName, string selectedStudentFullName)
+    public void UpdateStudent(string name, string surname, Guid selectedStudentId)
     {
-        var group = _context.Groups.FirstOrDefault(g => g.Name == selectedGroupName);
-
-        if (group is null)
-        {
-            throw new Exception($"Group '{selectedGroupName}' not found!");
-        }
-
-        var student = _context.Students
-            .Where(g => g.GroupId == group.Id)
-            .FirstOrDefault(s => s.Name + " " + s.Surname == selectedStudentFullName);
+        var student = _context.Students.FirstOrDefault(s => s.Id == selectedStudentId);
 
         if (student is null)
         {
-            throw new Exception($"Student '{selectedStudentFullName}' not found!");
+            throw new Exception($"Student not found!");
         }
 
         student.Name = name.Trim();

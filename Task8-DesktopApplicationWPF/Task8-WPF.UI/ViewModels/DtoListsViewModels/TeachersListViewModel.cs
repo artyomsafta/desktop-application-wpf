@@ -27,6 +27,7 @@ public class TeachersListViewModel : BaseViewModel
         {
             var teacherForListViewModel = new TeacherDto
             {
+                TeacherId = sortedTeachersDto.TeacherId,
                 Name = sortedTeachersDto.Name,
                 Surname = sortedTeachersDto.Surname
             };

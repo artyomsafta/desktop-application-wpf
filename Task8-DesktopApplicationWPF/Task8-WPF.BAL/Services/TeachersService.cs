@@ -36,7 +36,7 @@ public class TeachersService
         var teacherFullName = selectedTeacher.Name + " " + selectedTeacher.Surname;
         var teacher = _context.Teachers
             .Include(g => g.Groups)
-            .FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
+            .FirstOrDefault(t => t.Id == selectedTeacher.TeacherId);
 
         if (teacher is null)
         {
@@ -56,7 +56,7 @@ public class TeachersService
     {
         var teacherFullName = selectedTeacher.Name + " " + selectedTeacher.Surname;
         var teacher = _context.Teachers
-            .FirstOrDefault(t => t.Name + " " + t.Surname == teacherFullName);
+            .FirstOrDefault(t => t.Id == selectedTeacher.TeacherId);
 
         if (teacher is null)
         {

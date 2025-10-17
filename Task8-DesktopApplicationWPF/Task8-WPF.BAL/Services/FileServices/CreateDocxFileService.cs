@@ -9,9 +9,8 @@ public class CreateDocxFileService
 {
     public void ExportStudentsToDocx(GroupDto selectedGroup, string folderPath)
     {
-        var selectedGroupName = selectedGroup.GroupName;
-        var fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroupName}.docx");
-        var studentsList = new DtoListsService().GetStudentsList(selectedGroupName);
+        var fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroup.GroupName}.docx");
+        var studentsList = new DtoListsService().GetStudentsList(selectedGroup);
 
         if (studentsList is null || studentsList.Count is 0)
         {

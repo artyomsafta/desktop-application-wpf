@@ -15,7 +15,7 @@ public class CreatePdfFileService : IDocument
     {
         _selectedGroupName = selectedGroup.GroupName;
         _fullPath = Path.Combine(folderPath, $"{selectedGroup.CourseName}_{selectedGroup.GroupName}.pdf");
-        _studentsList = new DtoListsService().GetStudentsList(_selectedGroupName);
+        _studentsList = new DtoListsService().GetStudentsList(selectedGroup);
     }
 
     public void ExportStudentsToPdf()

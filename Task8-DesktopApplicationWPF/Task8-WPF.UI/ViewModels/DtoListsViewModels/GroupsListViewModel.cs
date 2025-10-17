@@ -27,6 +27,7 @@ public class GroupsListViewModel : BaseViewModel
         {
             var groupForListViewModel = new GroupDto
             {
+                GroupId = sortedGroupsDto.GroupId,
                 GroupName = sortedGroupsDto.GroupName,
                 CourseName = sortedGroupsDto.CourseName,
                 TeacherFullName = sortedGroupsDto.TeacherFullName

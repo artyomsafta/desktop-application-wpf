@@ -83,7 +83,7 @@ public class StudentsEditViewModel : BaseViewModel
         AddNewStudentCommand = new RelayCommand(
             () => ExecuteOperation(
                 () => _studentsService,
-                s => s.AddStudentEntry(_newStudentName, _newStudentSurname, CascadeComboboxViewModel.SelectedGroup.GroupName),
+                s => s.AddStudentEntry(_newStudentName, _newStudentSurname, CascadeComboboxViewModel.SelectedGroup.GroupId),
                 $"student has been added."
             ),
             () => CanExecuteOperation(CascadeComboboxViewModel.SelectedGroup, _newStudentName, _newStudentSurname)
@@ -95,8 +95,7 @@ public class StudentsEditViewModel : BaseViewModel
                 s => s.UpdateStudent(
                     _studentNameToUpdate,
                     _studentSurnameToUpdate,
-                    CascadeComboboxViewModel.SelectedGroup.GroupName,
-                    _selectedStudent.FullName
+                    _selectedStudent.StudentId
                     ),
                 $"student's data has been updated."
             ),
@@ -106,9 +105,8 @@ public class StudentsEditViewModel : BaseViewModel
         DeleteStudentCommand = new RelayCommand(
             () => ExecuteOperation(
                 () => _studentsService,
-                s => s.DeleteStudent(
-                    CascadeComboboxViewModel.SelectedGroup.GroupName,
-                    _selectedStudent.FullName
+                s => s.DeleteStudent(                    
+                    _selectedStudent.StudentId
                     ),
                 $"student has been deleted."
             ),

@@ -28,6 +28,7 @@ public class CoursesListViewModel : BaseViewModel
         {
             var courseForListViewModel = new CourseDto
             {
+                CourseId = sortedCoursesDto.CourseId,
                 CourseName = sortedCoursesDto.CourseName,
                 Description = sortedCoursesDto.Description
             };

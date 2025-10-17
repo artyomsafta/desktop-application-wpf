@@ -26,7 +26,7 @@ public class ImportFileService
         }
 
         var groupId = _context.Groups
-            .Where(g => g.Name == selectedGroupName)
+            .Where(g => g.Name.ToLower() == selectedGroupName.Trim().ToLower())
             .Select(g => g.Id)
             .FirstOrDefault();
 
@@ -72,12 +72,13 @@ public class ImportFileService
             while (csv.Read())
             {
                 var record = csv.GetRecord<StudentDto>();
+                record.StudentId = Guid.Empty;
                 students.Add(record);
             }
         }
 
         return students
-            .Where(g => g.GroupName == selectedGroupName)
+            .Where(g => g.GroupName.ToLower() == selectedGroupName.Trim().ToLower())
             .ToList();
     }
 }

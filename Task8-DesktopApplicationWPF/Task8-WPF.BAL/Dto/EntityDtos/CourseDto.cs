@@ -2,6 +2,7 @@
 
 public class CourseDto
 {
+    public Guid CourseId { get; set; }
     public string CourseName { get; set; }
     public string Description { get; set; }
 }

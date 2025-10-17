@@ -13,6 +13,17 @@ public class UpdateTeacheUnitTests
     private DbContextOptions<WpfAppDbContext> _options;
     private TeachersService _teachersService;
 
+    private static readonly Guid Course1Id = Guid.NewGuid();
+
+    private static readonly Guid Teacher1Id = Guid.NewGuid();
+    private static readonly Guid Teacher2Id = Guid.NewGuid();
+
+    private static readonly Guid Group1Id = Guid.NewGuid();
+    private static readonly Guid Group2Id = Guid.NewGuid();
+    private static readonly Guid Group3Id = Guid.NewGuid();
+    private static readonly Guid Group4Id = Guid.NewGuid();
+    private static readonly Guid Group5Id = Guid.NewGuid();
+
     [TestInitialize]
     public void Setup()
     {
@@ -27,14 +38,14 @@ public class UpdateTeacheUnitTests
     {
         using (var context = new WpfAppDbContext(_options))
         {
-            var testCourse1 = new Course { Name = "Test course", Description = "This is test course" };
-            var testTeacher1 = new Teacher { Name = "First", Surname = "Teacher" };
-            var testTeacher2 = new Teacher { Name = "Teacher", Surname = "Third" };
-            var testGroup1 = new Group { Name = "TestGrp-01", Course = testCourse1, Teacher = testTeacher1 };
-            var testGroup2 = new Group { Name = "TestGrp-02", Course = testCourse1, Teacher = testTeacher1 };
-            var testGroup3 = new Group { Name = "TestGrp-03", Course = testCourse1, Teacher = testTeacher2 };
-            var testGroup4 = new Group { Name = "TestGrp-04", Course = testCourse1, Teacher = testTeacher2 };
-            var testGroup5 = new Group { Name = "TestGrp-05", Course = testCourse1, Teacher = testTeacher2 };
+            var testCourse1 = new Course { Id = Course1Id, Name = "Test course", Description = "This is test course" };
+            var testTeacher1 = new Teacher { Id = Teacher1Id, Name = "First", Surname = "Teacher" };
+            var testTeacher2 = new Teacher { Id = Teacher2Id, Name = "Teacher", Surname = "Third" };
+            var testGroup1 = new Group { Id = Group1Id, Name = "TestGrp-01", Course = testCourse1, Teacher = testTeacher1 };
+            var testGroup2 = new Group { Id = Group2Id, Name = "TestGrp-02", Course = testCourse1, Teacher = testTeacher1 };
+            var testGroup3 = new Group { Id = Group3Id, Name = "TestGrp-03", Course = testCourse1, Teacher = testTeacher2 };
+            var testGroup4 = new Group { Id = Group4Id, Name = "TestGrp-04", Course = testCourse1, Teacher = testTeacher2 };
+            var testGroup5 = new Group { Id = Group5Id, Name = "TestGrp-05", Course = testCourse1, Teacher = testTeacher2 };
 
             context.Courses.AddRange(testCourse1);
             context.Teachers.AddRange(testTeacher1, testTeacher2);
@@ -51,16 +62,17 @@ public class UpdateTeacheUnitTests
         {
             var teacherNewName = "Second";
             var teacherNewSurname = "Teacher";
-            var selectedTeacher = new TeacherDto { Name = "Teacher", Surname = "Third" };
+            var selectedTeacher = new TeacherDto { TeacherId = Teacher2Id, Name = "Teacher", Surname = "Third" };
             _teachersService.UpdateTeacher(teacherNewName, teacherNewSurname, selectedTeacher);
 
-            var expectedTeacherValue = new TeacherDto { Name = "Second", Surname = "Teacher" };
+            var expectedTeacherValue = new TeacherDto { TeacherId = Teacher2Id, Name = "Second", Surname = "Teacher" };
 
             var actualTeacher = context.Teachers
-                .FirstOrDefault(t => t.Name + " " + t.Surname == teacherNewName + " " + teacherNewSurname);
+                .FirstOrDefault(t => t.Id == expectedTeacherValue.TeacherId);
 
             var actualTeacherValue = new TeacherDto
             {
+                TeacherId = actualTeacher.Id,
                 Name = actualTeacher.Name,
                 Surname = actualTeacher.Surname
             };
@@ -78,7 +90,7 @@ public class UpdateTeacheUnitTests
         {
             var teacherNewName = "Second";
             var teacherNewSurname = "Teacher";
-            var selectedTeacher = new TeacherDto { Name = "WRONG", Surname = "Teacher" };
+            var selectedTeacher = new TeacherDto { TeacherId = Guid.NewGuid(), Name = "WRONG", Surname = "Teacher" };
             _teachersService.UpdateTeacher(teacherNewName, teacherNewSurname, selectedTeacher);
 
             Assert.Fail("Expected Exception was not thrown.");

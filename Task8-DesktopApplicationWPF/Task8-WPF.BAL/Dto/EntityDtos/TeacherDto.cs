@@ -2,6 +2,7 @@
 
 public class TeacherDto
 {
+    public Guid TeacherId { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
 }

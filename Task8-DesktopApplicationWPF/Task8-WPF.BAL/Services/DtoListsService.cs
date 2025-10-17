@@ -25,6 +25,7 @@ public class DtoListsService
 
         return coursesList.Select(c => new CourseDto
         {
+            CourseId = c.Id,
             CourseName = c.Name,
             Description = c.Description
         }).ToList();
@@ -39,21 +40,17 @@ public class DtoListsService
 
         return gropusList.Select(g => new GroupDto
         {
+            GroupId = g.Id,
             GroupName = g.Name,
             CourseName = g.Course.Name,
             TeacherFullName = $"{g.Teacher?.Name} {g.Teacher?.Surname}"
         }).ToList();
     }
 
-    public List<StudentDto> GetStudentsList(string selectedGroupName)
+    public List<StudentDto> GetStudentsList(GroupDto selectedGroup)
     {
-        var groupId = _context.Groups
-       .Where(g => g.Name == selectedGroupName)
-       .Select(g => g.Id)
-       .FirstOrDefault();
-
         var students = _context.Students
-            .Where(g => g.GroupId == groupId)
+            .Where(g => g.GroupId == selectedGroup.GroupId)
             .Include(g => g.Group)
             .ToList();
 
@@ -63,6 +60,7 @@ public class DtoListsService
         {
             studentsList.Add(new StudentDto
             {
+                StudentId = student.Id,
                 Name = student.Name,
                 Surname = student.Surname,
                 GroupName = student.Group.Name
@@ -79,6 +77,7 @@ public class DtoListsService
 
         return teachersList.Select(t => new TeacherDto
         {
+            TeacherId = t.Id,
             Name = t.Name,
             Surname = t.Surname,
         }).ToList();

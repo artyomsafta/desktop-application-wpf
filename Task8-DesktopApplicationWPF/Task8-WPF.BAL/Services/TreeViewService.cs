@@ -28,12 +28,15 @@ public class TreeViewService
 
         var hierarchyToDtos = hierarchyFromDb.Select(c => new CoursesTreeDto
         {
+            CourseId = c.Id,
             CourseName = c.Name,
             Groups = c.Groups.Select(g => new GroupsTreeDto
             {
+                GroupId = g.Id,
                 GroupName = g.Name,
                 Students = g.Students.Select(s => new StudentsTreeDto
                 {
+                    StudentId = s.Id,
                     FullName = $"{s.Name} {s.Surname}"
                 }).ToList()
             }).ToList()
