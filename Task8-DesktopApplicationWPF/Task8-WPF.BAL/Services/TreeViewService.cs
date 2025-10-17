@@ -1,0 +1,47 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Task8_WPF.BAL.Dto.TreeDtos;
+using Task8_WPF.DAL;
+
+namespace Task8_WPF.BAL.Services;
+
+public class TreeViewService
+{
+    private WpfAppDbContext _context;
+
+    public TreeViewService(DbContextOptions<WpfAppDbContext> options)
+    {
+        _context = new WpfAppDbContext(options);
+    }
+
+    public TreeViewService()
+    {
+        _context = new WpfAppDbContext();
+    }
+
+    public List<CoursesTreeDto> GetHierarchyForTreeView()
+    {
+        var hierarchyFromDb = _context.Courses
+            .Include(c => c.Groups)
+            .ThenInclude(g => g.Students)
+            .AsNoTracking()
+            .ToList();
+
+        var hierarchyToDtos = hierarchyFromDb.Select(c => new CoursesTreeDto
+        {
+            CourseId = c.Id,
+            CourseName = c.Name,
+            Groups = c.Groups.Select(g => new GroupsTreeDto
+            {
+                GroupId = g.Id,
+                GroupName = g.Name,
+                Students = g.Students.Select(s => new StudentsTreeDto
+                {
+                    StudentId = s.Id,
+                    FullName = $"{s.Name} {s.Surname}"
+                }).ToList()
+            }).ToList()
+        }).ToList();
+
+        return hierarchyToDtos;
+    }
+}

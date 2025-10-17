@@ -1,0 +1,24 @@
+﻿<Application x:Class="Task8_WPF.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Task8_WPF.UI"
+             xmlns:vm="clr-namespace:Task8_WPF.UI.ViewModels"
+             xmlns:vw="clr-namespace:Task8_WPF.UI.Views">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type vm:DefaultViewModel}">
+            <vw:DefaultView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GroupsEditViewModel}">
+            <vw:GroupsEditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StudentsEditViewModel}">
+            <vw:StudentsEditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TeachersEditViewModel}">
+            <vw:TeachersEditView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TreeViewModel}">
+            <vw:CoursesTreeView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>
